@@ -46,3 +46,7 @@ Date: 2025/06/18
 - 프로젝트 파일.
 - 앱 실행 동영상.
 - 프로젝트 설명서(PDF)
+
+### **결과물 예시:** 
+![Image](https://github.com/user-attachments/assets/f8fc268c-2284-4795-ad55-7bf2963678b5)
+![Image](https://github.com/user-attachments/assets/e75ba2ff-ffc5-4cdd-9520-357f9b7cef9a)
