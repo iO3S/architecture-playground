@@ -73,6 +73,12 @@
 		A8955EBB2ABB387000C6A2C7 /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = A8955EBA2ABB387000C6A2C7 /* RxBlocking */; };
 		A8955EBD2ABB387000C6A2C7 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A8955EBC2ABB387000C6A2C7 /* RxSwift */; };
 		A8955EBF2ABB389200C6A2C7 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = A8955EBE2ABB389200C6A2C7 /* RxCocoa */; };
+		A8B866812E0B4A0A008C431E /* ListSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B8667F2E0B4A0A008C431E /* ListSearchViewController.swift */; };
+		A8B866822E0B4A0A008C431E /* ListSearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B8667D2E0B4A0A008C431E /* ListSearchPresenter.swift */; };
+		A8B866832E0B4A0A008C431E /* ListSearchModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B8667C2E0B4A0A008C431E /* ListSearchModels.swift */; };
+		A8B866842E0B4A0A008C431E /* ListSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B8667B2E0B4A0A008C431E /* ListSearchInteractor.swift */; };
+		A8B866852E0B4A0A008C431E /* ListSearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B8667E2E0B4A0A008C431E /* ListSearchRouter.swift */; };
+		A8B866862E0B4A0A008C431E /* ListSearchWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B866802E0B4A0A008C431E /* ListSearchWorker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,6 +150,12 @@
 		A8955EA82ABB1D7400C6A2C7 /* AppSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSearchService.swift; sourceTree = "<group>"; };
 		A8955EAA2ABB1DA500C6A2C7 /* AppSearchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSearchRequest.swift; sourceTree = "<group>"; };
 		A8955EAC2ABB1DAE00C6A2C7 /* AppSearchEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSearchEndpoint.swift; sourceTree = "<group>"; };
+		A8B8667B2E0B4A0A008C431E /* ListSearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSearchInteractor.swift; sourceTree = "<group>"; };
+		A8B8667C2E0B4A0A008C431E /* ListSearchModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSearchModels.swift; sourceTree = "<group>"; };
+		A8B8667D2E0B4A0A008C431E /* ListSearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSearchPresenter.swift; sourceTree = "<group>"; };
+		A8B8667E2E0B4A0A008C431E /* ListSearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSearchRouter.swift; sourceTree = "<group>"; };
+		A8B8667F2E0B4A0A008C431E /* ListSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSearchViewController.swift; sourceTree = "<group>"; };
+		A8B866802E0B4A0A008C431E /* ListSearchWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSearchWorker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -336,6 +348,12 @@
 				A861A89A2ABA3F4E0080893B /* SearchDetailViewController.swift */,
 				A861A8502AB9D2650080893B /* SearchReactor.swift */,
 				2D0567422ABAEC1700788E5D /* Views */,
+				A8B8667B2E0B4A0A008C431E /* ListSearchInteractor.swift */,
+				A8B8667C2E0B4A0A008C431E /* ListSearchModels.swift */,
+				A8B8667D2E0B4A0A008C431E /* ListSearchPresenter.swift */,
+				A8B8667E2E0B4A0A008C431E /* ListSearchRouter.swift */,
+				A8B8667F2E0B4A0A008C431E /* ListSearchViewController.swift */,
+				A8B866802E0B4A0A008C431E /* ListSearchWorker.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -550,6 +568,12 @@
 				A861A88A2ABA17780080893B /* ShowMoreView.swift in Sources */,
 				A861A8572AB9D2650080893B /* SearchCoordinator.swift in Sources */,
 				A8955EA42ABB1D1D00C6A2C7 /* NetworkImp.swift in Sources */,
+				A8B866812E0B4A0A008C431E /* ListSearchViewController.swift in Sources */,
+				A8B866822E0B4A0A008C431E /* ListSearchPresenter.swift in Sources */,
+				A8B866832E0B4A0A008C431E /* ListSearchModels.swift in Sources */,
+				A8B866842E0B4A0A008C431E /* ListSearchInteractor.swift in Sources */,
+				A8B866852E0B4A0A008C431E /* ListSearchRouter.swift in Sources */,
+				A8B866862E0B4A0A008C431E /* ListSearchWorker.swift in Sources */,
 				A8955EA52ABB1D1D00C6A2C7 /* EndPoint.swift in Sources */,
 				2D0567442ABAEE2E00788E5D /* SearchViewModel.swift in Sources */,
 				2D05673F2ABAE4B100788E5D /* ReleasesDateCalculator.swift in Sources */,
