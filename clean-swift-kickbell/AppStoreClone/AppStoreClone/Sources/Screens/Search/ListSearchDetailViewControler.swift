@@ -1,16 +1,28 @@
 //
-//  SearchDetailViewController.swift
+//  ListSearchDetailViewControler.swift
 //  AppStoreClone
 //
 //  Created by jc.kim on 9/20/23.
 //
 
-/*
 import UIKit
 
-class SearchDetailViewControler: UIViewController {
+protocol ListSearchDetailDisplayLogic: AnyObject {
+    func displayAppDetail(viewModel: ListSearchDetail.ShowAppDetail.ViewModel)
+}
+
+protocol ListSearchDetailDataStore {
+    var appData: ListSearch.AppSearchResultDTO { get set }
+}
+
+class ListSearchDetailViewControler: UIViewController, ListSearchDetailDisplayLogic {
     //MARK: - Properties
     
+    var interactor: ListSearchDetailBusinessLogic?
+    var router: (NSObjectProtocol & ListSearchDetailRoutingLogic & ListSearchDetailDataPassing)?
+    
+    // DataStore
+    private var appData: ListSearch.AppSearchResultDTO = ListSearch.AppSearchResultDTO()
     
     //MARK: - LifeCycles
     
@@ -18,6 +30,11 @@ class SearchDetailViewControler: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        setupVIPCycle()
+        
+        // 데이터 로드 요청
+        let request = ListSearchDetail.ShowAppDetail.Request()
+        interactor?.showAppDetail(request: request)
     }
     
     
@@ -51,6 +68,37 @@ class SearchDetailViewControler: UIViewController {
     
     private let appInfoDetailView = AppInfoDetailView()
     
+    // MARK: - Setup
+    
+    private func setupVIPCycle() {
+        let viewController = self
+        let interactor = ListSearchDetailInteractor()
+        let presenter = ListSearchDetailPresenter()
+        let router = ListSearchDetailRouter()
+        
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        router.viewController = viewController
+        router.dataStore = interactor
+        
+        // 라우터의 dataStore에 데이터 설정
+        if let appData = router.dataStore?.appData {
+            interactor.appData = appData
+        }
+    }
+    
+    // MARK: - Display Logic
+    
+    func displayAppDetail(viewModel: ListSearchDetail.ShowAppDetail.ViewModel) {
+        // 앱 상세 데이터로 UI 업데이트
+        title = viewModel.appData.trackName
+        appIconDetailView.configure(with: viewModel.appData)
+        appInfoDetailView.configure(with: viewModel.appData)
+        releaseNoteView.configure(with: viewModel.appData.releaseNotes ?? "")
+    }
+    
     private let screenshotsPreviewView = ScreenshotsPreviewView()
     
     private let newFeatureView = NewFeatureView()
@@ -64,7 +112,7 @@ class SearchDetailViewControler: UIViewController {
 //MARK: - Methods
 
 
-extension SearchDetailViewControler {
+extension ListSearchDetailViewControler {
     private func createView<T: UIView>(
         _ viewType: T.Type,
         initializer: (() -> T)? = nil) -> T {
@@ -123,7 +171,7 @@ extension SearchDetailViewControler {
 
 //MARK: - Setups
 
-extension SearchDetailViewControler {
+extension ListSearchDetailViewControler {
     private func setup() {
         setupUI()
         setupViews()
@@ -179,4 +227,4 @@ extension SearchDetailViewControler {
     }
 }
 
-*/
+

@@ -27,6 +27,9 @@ class ListSearchRouter: NSObject, ListSearchRoutingLogic, ListSearchDataPassing
   weak var viewController: ListSearchViewController?
   var dataStore: ListSearchDataStore?
   
+  // 코디네이터 패턴 연결을 위한 속성
+  weak var coordinator: SearchCoordinator?
+  
   // MARK: Routing
   
   //func routeToSomewhere(segue: UIStoryboardSegue?)
@@ -46,10 +49,16 @@ class ListSearchRouter: NSObject, ListSearchRoutingLogic, ListSearchDataPassing
 
   // MARK: Navigation
   
-  //func navigateToSomewhere(source: ListSearchViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
+  // 앱 상세 화면으로 이동
+  func routeToAppDetail(with appData: ListSearch.AppSearchResultDTO) {
+    // 코디네이터가 있으면 코디네이터에 화면 전환 위임
+    if let coordinator = coordinator {
+      coordinator.showAppDetail(with: appData)
+    } else {
+      // 코디네이터가 없는 경우 기본 처리 (로그 출력)
+      print("Warning: Coordinator not set in ListSearchRouter")
+    }
+  }
   
   // MARK: Passing data
   
