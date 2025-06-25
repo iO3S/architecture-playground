@@ -1,13 +1,13 @@
-//
-//  SoftwareDataResponseModel.swift
-//  AppStoreClone
-//
-//  Created by ksmartech on 2023/09/20.
-//
+// //
+// //  SoftwareDataResponseModel.swift
+// //  AppStoreClone
+// //
+// //  Created by ksmartech on 2023/09/20.
+// //
 
-import Foundation
+// import Foundation
 
-struct SoftwareDataResponseModel: Codable {
-    let resultCount: Int
-    let results: [SoftwareDataModel]
-}
+// struct SoftwareDataResponseModel: Codable {
+//     let resultCount: Int
+//     let results: [SoftwareDataModel]
+// }

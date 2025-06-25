@@ -15,6 +15,8 @@ import UIKit
 protocol ListSearchDisplayLogic: class
 {
   func displaySomething(viewModel: ListSearch.Something.ViewModel)
+  func displayUpdatedSearchQuery(viewModel: ListSearch.UpdateSearchQuery.ViewModel)
+  func displaySearchResults(viewModel: ListSearch.PerformSearch.ViewModel)
 }
 
 class ListSearchViewController: UIViewController, ListSearchDisplayLogic, UISearchBarDelegate
@@ -147,20 +149,83 @@ class ListSearchViewController: UIViewController, ListSearchDisplayLogic, UISear
   {
     // 임시 구현
   }
+  
+  // 검색 관련 데이터 저장을 위한 변수
+  private var recentSearchItems: [ListSearch.SearchDisplayItemDTO] = []
+  private var searchResultItems: [ListSearch.SearchDisplayItemDTO] = []
+  private var currentQuery: String = ""
+  
+  func displayUpdatedSearchQuery(viewModel: ListSearch.UpdateSearchQuery.ViewModel)
+  {
+    // 임시 구현 - 최근 검색어 표시
+    self.recentSearchItems = viewModel.recentSearchItems
+    self.searchResultItems = []
+    
+    // 테이블뷰 새로고침
+    tableView.reloadData()
+  }
+  
+  func displaySearchResults(viewModel: ListSearch.PerformSearch.ViewModel)
+  {
+    // 검색 결과 표시
+    self.searchResultItems = viewModel.searchResultItems
+    self.currentQuery = viewModel.query
+    self.recentSearchItems = []
+    
+    // 검색 중 표시자 숨기기
+    activityIndicatorView.stopAnimating()
+    
+    // 테이블뷰 새로고침
+    tableView.reloadData()
+  }
+  
+  // MARK: - UISearchBarDelegate
+  
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    guard let searchText = searchBar.text else { return }
+    let request = ListSearch.PerformSearch.Request(query: searchText)
+    interactor?.performSearch(request: request)
+  }
+  
+  func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    let request = ListSearch.UpdateSearchQuery.Request(query: searchText)
+    interactor?.updateSearchQuery(request: request)
+  }
 }
 
 extension ListSearchViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // 임시 구현 - 다음 단계에서 구현 예정
         return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        // 임시 구현 - 다음 단계에서 구현 예정
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
+        cell.textLabel?.text = "검색 결과가 여기에 표시됩니다."
+        cell.detailTextLabel?.text = "Clean Swift 아키텍처 구현 중"
+        return cell
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "검색"
     }
 }
 
 extension ListSearchViewController : UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        // 임시 구현 - 다음 단계에서 구현 예정
+        print("Selected row at \(indexPath.row)")
+    }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
 }
 
 

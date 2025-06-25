@@ -16,6 +16,7 @@ enum ListSearch
 {
   // MARK: Use cases
   
+  // 기본 Something 유즈케이스 유지 (임시)
   enum Something
   {
     struct Request
@@ -27,5 +28,102 @@ enum ListSearch
     struct ViewModel
     {
     }
+  }
+  
+  // 검색어 업데이트 유즈케이스
+  enum UpdateSearchQuery
+  {
+    struct Request
+    {
+      let query: String
+    }
+    
+    struct Response
+    {
+      let recentSearches: [String]
+      let filteredRecentSearches: [String]
+    }
+    
+    struct ViewModel
+    {
+      let recentSearchItems: [SearchDisplayItemDTO]
+    }
+  }
+  
+  // 검색 실행 유즈케이스
+  enum PerformSearch
+  {
+    struct Request
+    {
+      let query: String
+    }
+    
+    struct Response
+    {
+      let searchResults: [AppSearchResultDTO]
+      let query: String
+    }
+    
+    struct ViewModel
+    {
+      let searchResultItems: [SearchDisplayItemDTO]
+      let query: String
+    }
+  }
+  
+  // Clean Swift 아키텍처에 맞는 DTO 모델들
+  
+  // 앱 검색 결과 DTO
+  struct AppSearchResultDTO: Equatable {
+    let trackId: Int
+    let trackName: String
+    let description: String
+    let artistName: String
+    let averageUserRating: Float
+    let screenshotUrls: [String]
+    let artworkUrl100: String
+    let formattedPrice: String
+    let genres: [String]
+    
+    // 기본 값으로 초기화하는 생성자 추가
+    init(trackId: Int = 0,
+         trackName: String = "",
+         description: String = "",
+         artistName: String = "",
+         averageUserRating: Float = 0.0,
+         screenshotUrls: [String] = [],
+         artworkUrl100: String = "",
+         formattedPrice: String = "",
+         genres: [String] = []) {
+      self.trackId = trackId
+      self.trackName = trackName
+      self.description = description
+      self.artistName = artistName
+      self.averageUserRating = averageUserRating
+      self.screenshotUrls = screenshotUrls
+      self.artworkUrl100 = artworkUrl100
+      self.formattedPrice = formattedPrice
+      self.genres = genres
+    }
+  }
+  
+  // 화면에 표시할 검색 항목 DTO
+  struct SearchDisplayItemDTO: Equatable {
+    enum ItemType: Equatable {
+      case app(AppSearchResultDTO)
+      case recent(String)
+      
+      var isRecent: Bool {
+        if case .recent = self { return true }
+        return false
+      }
+      
+      var isApp: Bool {
+        if case .app = self { return true }
+        return false
+      }
+    }
+    
+    let type: ItemType
   }
 }
