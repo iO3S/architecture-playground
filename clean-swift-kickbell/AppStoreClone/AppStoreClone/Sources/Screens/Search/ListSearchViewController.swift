@@ -195,16 +195,49 @@ class ListSearchViewController: UIViewController, ListSearchDisplayLogic, UISear
 
 extension ListSearchViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // 임시 구현 - 다음 단계에서 구현 예정
-        return 0
+        // 검색 결과 또는 최근 검색어 중 표시할 항목 수 반환
+        if !searchResultItems.isEmpty {
+            return searchResultItems.count
+        } else {
+            return recentSearchItems.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // 임시 구현 - 다음 단계에서 구현 예정
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
-        cell.textLabel?.text = "검색 결과가 여기에 표시됩니다."
-        cell.detailTextLabel?.text = "Clean Swift 아키텍처 구현 중"
-        return cell
+        // 검색 결과가 있으면 검색 결과 표시, 없으면 최근 검색어 표시
+        let item = !searchResultItems.isEmpty ? searchResultItems[indexPath.row] : recentSearchItems[indexPath.row]
+        
+        switch item.type {
+        case let .app(data):
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchedTableViewCell.reuseIdentifier) as? SearchedTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.configure(with: data)
+            cell.tapClosure = { [weak self] in 
+                // 코디네이터를 통해 앱 상세 화면으로 이동
+//                self?.router?.routeToAppDetail(with: data)
+            }
+            return cell
+            
+        case let .recent(text):
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.reuseIdentifier) else {
+                return UITableViewCell()
+            }
+            let searchText = self.searchController.searchBar.text ?? ""
+            
+            if searchText.isEmpty {
+                cell.textLabel?.textColor = .systemBlue
+                cell.imageView?.tintColor = .systemBlue
+                cell.imageView?.image = nil
+            } else {
+                cell.textLabel?.textColor = .label
+                cell.imageView?.tintColor = .label
+                cell.imageView?.image = UIImage(systemName: "magnifyingglass")
+            }
+            
+            cell.textLabel?.text = text
+            return cell
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -212,19 +245,58 @@ extension ListSearchViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "검색"
+        if !searchResultItems.isEmpty {
+            return "검색 결과"
+        } else if !recentSearchItems.isEmpty {
+            return "최근 검색어"
+        } else {
+            return nil
+        }
+    }
+    
+    // 접근성 지원 추가
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if !searchResultItems.isEmpty, indexPath.row == 0 {
+            UIAccessibility.post(
+                notification: .announcement,
+                argument: "\(currentQuery)에 대한 \(searchResultItems.count)개의 데이터가 로딩되었습니다."
+            )
+        }
     }
 }
 
 extension ListSearchViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        // 임시 구현 - 다음 단계에서 구현 예정
-        print("Selected row at \(indexPath.row)")
+        
+        // 검색 결과가 있으면 검색 결과 항목, 없으면 최근 검색어 항목 처리
+        let item = !searchResultItems.isEmpty ? searchResultItems[indexPath.row] : recentSearchItems[indexPath.row]
+        
+        switch item.type {
+        case let .app(data):
+            // 코디네이터를 통해 앱 상세 화면으로 이동
+            print(data)
+//            router?.routeToAppDetail(with: data)
+            
+        case let .recent(text):
+            // 최근 검색어 클릭 시 검색 실행
+            searchController.searchBar.text = text
+            searchController.searchBar.becomeFirstResponder()
+            let request = ListSearch.PerformSearch.Request(query: text)
+            interactor?.performSearch(request: request)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        // 검색 결과와 최근 검색어에 따라 다른 높이 적용
+        let item = !searchResultItems.isEmpty ? searchResultItems[indexPath.row] : recentSearchItems[indexPath.row]
+        
+        switch item.type {
+        case .app:
+            return 180  // 앱 검색 결과는 스크린샷 표시를 위해 더 크게
+        case .recent:
+            return 44   // 최근 검색어는 기본 셀 높이
+        }
     }
 }
 

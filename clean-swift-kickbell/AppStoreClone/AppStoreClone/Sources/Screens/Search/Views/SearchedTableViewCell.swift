@@ -60,18 +60,18 @@ extension SearchedTableViewCell {
         tapClosure()
     }
     
-    func configure(with info: SearchViewModel) {
+    func configure(with data: ListSearch.AppSearchResultDTO) {
         let appIconListinfo = AppIconListView.Info(
-            artworkUrl512: info.artworkUrl512,
-            sellerName: info.sellerName,
-            trackName: info.trackName
+            artworkUrl512: data.artworkUrl100,
+            sellerName: data.artistName,
+            trackName: data.trackName
         )
         appIconListView.configure(with: appIconListinfo)
         
         let width = UIScreen.main.bounds.width/3 - 20
         let height = width * 2
         let screenshotsPreviewInfo = ScreenshotsPreviewView.Info(
-            images: Array(info.screenshotImages.prefix(3)),
+            images: Array(data.screenshotUrls.prefix(3)),
             imageSize: CGSize(width: width, height: height),
             type: .iphone
         )

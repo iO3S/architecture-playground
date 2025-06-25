@@ -15,6 +15,8 @@ import UIKit
 protocol ListSearchPresentationLogic
 {
   func presentSomething(response: ListSearch.Something.Response)
+  func presentUpdatedSearchQuery(response: ListSearch.UpdateSearchQuery.Response)
+  func presentSearchResults(response: ListSearch.PerformSearch.Response)
 }
 
 class ListSearchPresenter: ListSearchPresentationLogic
@@ -27,5 +29,41 @@ class ListSearchPresenter: ListSearchPresentationLogic
   {
     let viewModel = ListSearch.Something.ViewModel()
     viewController?.displaySomething(viewModel: viewModel)
+  }
+  
+  // MARK: Search Query
+  
+  func presentUpdatedSearchQuery(response: ListSearch.UpdateSearchQuery.Response)
+  {
+    // 임시 구현 - 다음 단계에서 구현 예정
+    let displayItems = response.filteredRecentSearches.map { recentSearch in
+      ListSearch.SearchDisplayItemDTO(type: .recent(recentSearch))
+    }
+    
+    let viewModel = ListSearch.UpdateSearchQuery.ViewModel(
+      recentSearchItems: displayItems
+    )
+    
+    viewController?.displayUpdatedSearchQuery(viewModel: viewModel)
+  }
+  
+  // MARK: Search Results
+  
+  func presentSearchResults(response: ListSearch.PerformSearch.Response)
+  {
+    // 검색 결과를 SearchDisplayItemDTO로 변환
+    let displayItems = response.searchResults.map { appSearchResultDTO in
+      ListSearch.SearchDisplayItemDTO(type: .app(appSearchResultDTO))
+    }
+    
+    // 검색 결과가 없는 경우 안내 메시지 추가 가능
+    // 현재는 비어있는 배열만 전달
+    
+    let viewModel = ListSearch.PerformSearch.ViewModel(
+      searchResultItems: displayItems,
+      query: response.query
+    )
+    
+    viewController?.displaySearchResults(viewModel: viewModel)
   }
 }
