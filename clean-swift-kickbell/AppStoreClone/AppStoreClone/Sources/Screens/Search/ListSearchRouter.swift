@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol ListSearchRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+  func routeToAppDetail(segue: UIStoryboardSegue?)
 }
 
 protocol ListSearchDataPassing
@@ -27,43 +27,34 @@ class ListSearchRouter: NSObject, ListSearchRoutingLogic, ListSearchDataPassing
   weak var viewController: ListSearchViewController?
   var dataStore: ListSearchDataStore?
   
-  // 코디네이터 패턴 연결을 위한 속성
-  weak var coordinator: SearchCoordinator?
-  
   // MARK: Routing
   
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
+  func routeToAppDetail(segue: UIStoryboardSegue?)
+  {
+    if let segue = segue {
+      let destinationVC = segue.destination as! ListSearchDetailViewControler
+      var destinationDS = destinationVC.router!.dataStore!
+      passDataToAppDetail(source: dataStore!, destination: &destinationDS)
+    } else {
+      let destinationVC = ListSearchDetailViewControler()
+      var destinationDS = destinationVC.router!.dataStore!
+      passDataToAppDetail(source: dataStore!, destination: &destinationDS)
+      navigateToAppDetail(source: viewController!, destination: destinationVC)
+    }
+  }
 
   // MARK: Navigation
   
-  // 앱 상세 화면으로 이동
-  func routeToAppDetail(with appData: ListSearch.AppSearchResultDTO) {
-    // 코디네이터가 있으면 코디네이터에 화면 전환 위임
-    if let coordinator = coordinator {
-      coordinator.showAppDetail(with: appData)
-    } else {
-      // 코디네이터가 없는 경우 기본 처리 (로그 출력)
-      print("Warning: Coordinator not set in ListSearchRouter")
-    }
+  func navigateToAppDetail(source: ListSearchViewController, destination: ListSearchDetailViewControler)
+  {
+    source.show(destination, sender: nil)
   }
   
   // MARK: Passing data
   
-  //func passDataToSomewhere(source: ListSearchDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+  func passDataToAppDetail(source: ListSearchDataStore, destination: inout ListSearchDetailDataStore)
+  {
+      let selectedRow = viewController?.tableView.indexPathForSelectedRow?.row
+      destination.searchResults = source.searchResults[selectedRow!]
+  }
 }
