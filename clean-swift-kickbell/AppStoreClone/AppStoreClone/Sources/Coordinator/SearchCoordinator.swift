@@ -63,12 +63,18 @@ class SearchCoordinator: Coordinator {
 //        navigationController.pushViewController(vc, animated: true)
 //    }
     
-    func didSelected() {
-        // 임시로 상세 화면 이동을 비활성화합니다.
-        // 나중에 SearchDetailViewControler 주석 해제 후 다시 활성화할 예정
-        print("Selected item: ")
-        // let searchDetailViewControler = SearchDetailViewControler()
-        // searchDetailViewControler.configure(with: target)
-        // navigationController.pushViewController(searchDetailViewControler, animated: true)
-    }
+    // 앱 상세 화면으로 이동 - Clean Swift에서 사용
+//    func showAppDetail(with appData: ListSearch.AppSearchResultDTO) {
+//        // 임시로 상세 화면 이동을 비활성화합니다.
+//        // 나중에 AppDetailViewController 구현 후 다시 활성화할 예정
+//        print("Selected app: \(appData.trackName) (ID: \(appData.trackId))")
+//        // let appDetailViewController = AppDetailViewController()
+//        // appDetailViewController.configure(with: appData)
+//        // navigationController.pushViewController(appDetailViewController, animated: true)
+//    }
+//    
+//    // 기존 ReactorKit 버전에서 사용하던 메서드 - 호환성을 위해 유지
+//    func didSelected(with data: ListSearch.AppSearchResultDTO) {
+//        showAppDetail(with: data)
+//    }
 }
