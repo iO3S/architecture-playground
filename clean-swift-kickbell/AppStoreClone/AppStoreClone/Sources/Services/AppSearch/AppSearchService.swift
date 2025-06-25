@@ -14,7 +14,7 @@ protocol AppSearchServiceProtocol {
 }
 
 // 앱 검색 서비스 구현체
-final class AppSearchService: AppSearchServiceProtocol {
+final class AppSearchServiceImp: AppSearchServiceProtocol {
     
     private let network: Network
     

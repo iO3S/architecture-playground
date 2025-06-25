@@ -15,27 +15,142 @@ import UIKit
 protocol ListSearchBusinessLogic
 {
   func doSomething(request: ListSearch.Something.Request)
+  func updateSearchQuery(request: ListSearch.UpdateSearchQuery.Request)
+  func performSearch(request: ListSearch.PerformSearch.Request)
 }
 
 protocol ListSearchDataStore
 {
-  //var name: String { get set }
+  var searchResults: [ListSearch.AppSearchResultDTO] { get set }
+  var recentSearches: [String] { get set }
+  var currentQuery: String { get set }
 }
 
 class ListSearchInteractor: ListSearchBusinessLogic, ListSearchDataStore
 {
   var presenter: ListSearchPresentationLogic?
-  var worker: ListSearchWorker?
-  //var name: String = ""
   
-  // MARK: Do something
+  // 검색 관련 서비스
+  private var recentSearchService: RecentSearchService?
+  private var appSearchService: AppSearchServiceProtocol?
+  
+  // Clean Swift DataStore 속성
+  var searchResults: [ListSearch.AppSearchResultDTO] = []
+  var recentSearches: [String] = []
+  var currentQuery: String = ""
+  
+  // MARK: Initialization
+  
+  init(recentSearchService: RecentSearchService? = nil, appSearchService: AppSearchServiceProtocol? = nil) {
+    self.recentSearchService = recentSearchService
+    self.appSearchService = appSearchService
+    
+    // 서비스가 주입되지 않은 경우 AppDelegate에서 가져오기
+    if self.recentSearchService == nil || self.appSearchService == nil {
+//      if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+//         let container = appDelegate.container {
+//        self.recentSearchService = container.resolve(RecentSearchService.self)
+//        self.appSearchService = container.resolve(AppSearchService.self)
+//      }
+    }
+  }
+  
+  // MARK: Business Logic
   
   func doSomething(request: ListSearch.Something.Request)
   {
-    worker = ListSearchWorker()
-    worker?.doSomeWork()
-    
+    // 기본 구현 - 필요시 실제 로직 추가
     let response = ListSearch.Something.Response()
     presenter?.presentSomething(response: response)
+  }
+  
+  // 검색어 업데이트 로직
+  func updateSearchQuery(request: ListSearch.UpdateSearchQuery.Request)
+  {
+    // 현재 검색어 저장
+    currentQuery = request.query
+    
+    // 최근 검색어 가져오기
+    self.recentSearches = self.recentSearchService?.read() ?? []
+    
+    // 현재 검색어로 필터링
+    let filteredRecentSearches = recentSearches.filter { request.query.isEmpty ? true : $0.contains(request.query) }
+    
+    let response = ListSearch.UpdateSearchQuery.Response(
+      recentSearches: recentSearches,
+      filteredRecentSearches: filteredRecentSearches
+    )
+    
+    // 프리젠터에 전달
+    presenter?.presentUpdatedSearchQuery(response: response)
+  }
+  
+  // 검색 실행 로직
+  func performSearch(request: ListSearch.PerformSearch.Request)
+  {
+    // 검색어가 비어있는 경우 빈 결과 반환
+    guard !request.query.isEmpty else {
+      let response = ListSearch.PerformSearch.Response(
+        searchResults: [],
+        query: request.query
+      )
+      presenter?.presentSearchResults(response: response)
+      return
+    }
+    
+    // 검색어가 있는 경우 최근 검색어에 추가
+    _ = recentSearchService?.create(text: request.query)
+    
+    // 최근 검색어 다시 가져오기
+    self.recentSearches = self.recentSearchService?.read() ?? []
+    
+    // async/await 기반 검색 실행
+    Task {
+      do {
+        // 앱 검색 서비스 호출
+        guard let searchResults = try await appSearchService?.search(
+          country: "kr", 
+          entity: "software", 
+          limit: "25", 
+          term: request.query
+        ) else {
+          // 서비스가 nil인 경우 빈 결과 반환
+          let response = ListSearch.PerformSearch.Response(
+            searchResults: [],
+            query: request.query
+          )
+          presenter?.presentSearchResults(response: response)
+          return
+        }
+        
+        // 검색 결과 저장
+        self.searchResults = searchResults
+        self.currentQuery = request.query
+          
+        print(searchResults, "ss")
+        
+        // 검색 결과를 presenter에 전달
+        let response = ListSearch.PerformSearch.Response(
+          searchResults: searchResults,
+          query: request.query
+        )
+        
+        // UI 업데이트는 메인 스레드에서 수행
+        await MainActor.run {
+          presenter?.presentSearchResults(response: response)
+        }
+      } catch {
+        print("Search error: \(error)")
+        
+        // 에러 발생 시 빈 결과 반환
+        await MainActor.run {
+          let response = ListSearch.PerformSearch.Response(
+            searchResults: [],
+            query: request.query
+          )
+          presenter?.presentSearchResults(response: response)
+        }
+      }
+    }
   }
 }

@@ -27,8 +27,12 @@ class SearchCoordinator: Coordinator {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let container = appDelegate.container
         
+        // 서비스 주입
+        let recentSearchService = container.resolve(RecentSearchService.self)!
+        let appSearchService = container.resolve(AppSearchServiceProtocol.self)!
+        
         // Clean Swift VIP 사이클 설정
-        let interactor = ListSearchInteractor()
+        let interactor = ListSearchInteractor(recentSearchService: recentSearchService, appSearchService: appSearchService)
         let presenter = ListSearchPresenter()
         let router = ListSearchRouter()
         
@@ -37,6 +41,7 @@ class SearchCoordinator: Coordinator {
         interactor.presenter = presenter
         presenter.viewController = vc
         router.viewController = vc
+        router.dataStore = interactor
         
         navigationController.pushViewController(vc, animated: true)
     }
@@ -58,10 +63,10 @@ class SearchCoordinator: Coordinator {
 //        navigationController.pushViewController(vc, animated: true)
 //    }
     
-    func didSelected(with target: SearchViewModel) {
+    func didSelected() {
         // 임시로 상세 화면 이동을 비활성화합니다.
         // 나중에 SearchDetailViewControler 주석 해제 후 다시 활성화할 예정
-        print("Selected item: \(target)")
+        print("Selected item: ")
         // let searchDetailViewControler = SearchDetailViewControler()
         // searchDetailViewControler.configure(with: target)
         // navigationController.pushViewController(searchDetailViewControler, animated: true)

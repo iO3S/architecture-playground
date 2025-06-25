@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         container.register(RecentSearchService.self) { r in
             RecentSearchServiceImp(repository: r.resolve(UserDefaultService.self)!)
         }
-        container.register(AppSearchService.self) { r in
+        container.register(AppSearchServiceProtocol.self) { r in
             AppSearchServiceImp(network: r.resolve(Network.self)!)
         }
     }
