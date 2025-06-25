@@ -17,7 +17,7 @@ protocol ListSearchDisplayLogic: class
   func displaySomething(viewModel: ListSearch.Something.ViewModel)
 }
 
-class ListSearchViewController: UIViewController, ListSearchDisplayLogic
+class ListSearchViewController: UIViewController, ListSearchDisplayLogic, UISearchBarDelegate
 {
   var interactor: ListSearchBusinessLogic?
   var router: (NSObjectProtocol & ListSearchRoutingLogic & ListSearchDataPassing)?
@@ -109,6 +109,11 @@ class ListSearchViewController: UIViewController, ListSearchDisplayLogic
     navigationItem.hidesSearchBarWhenScrolling = false
     view.backgroundColor = .systemBackground
     title = "검색"
+    
+    // 테이블뷰 설정
+    tableView.dataSource = self
+    tableView.delegate = self
+    searchController.searchBar.delegate = self
   }
   
   private func setupSubviews() {
@@ -143,3 +148,19 @@ class ListSearchViewController: UIViewController, ListSearchDisplayLogic
     // 임시 구현
   }
 }
+
+extension ListSearchViewController : UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+}
+
+extension ListSearchViewController : UITableViewDelegate {
+    
+}
+
+
