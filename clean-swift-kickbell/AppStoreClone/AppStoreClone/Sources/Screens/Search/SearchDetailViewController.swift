@@ -5,6 +5,7 @@
 //  Created by jc.kim on 9/20/23.
 //
 
+/*
 import UIKit
 
 class SearchDetailViewControler: UIViewController {
@@ -178,9 +179,4 @@ extension SearchDetailViewControler {
     }
 }
 
-
-
-
-
-
-
+*/

@@ -5,6 +5,7 @@
 //  Created by ksmartech on 2023/09/19.
 //
 
+/*
 import Foundation
 import ReactorKit
 import RxSwift
@@ -165,3 +166,4 @@ extension SearchReactor {
         let type: ItemType
     }
 }
+*/

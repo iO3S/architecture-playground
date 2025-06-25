@@ -64,17 +64,73 @@ class ListSearchViewController: UIViewController, ListSearchDisplayLogic
     }
   }
   
+  // MARK: Views
+  
+  private let searchController: UISearchController = {
+    let searchControler = UISearchController(searchResultsController: nil)
+    searchControler.searchBar.placeholder = "게임, 앱, 스토리 등"
+    return searchControler
+  }()
+  
+  private let tableView: UITableView = {
+    let tableView = UITableView()
+    tableView.translatesAutoresizingMaskIntoConstraints = false
+    tableView.separatorInset.right = 20
+    tableView.register(headerFooterType: RecentSearchHeaderView.self)
+    tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseIdentifier)
+    tableView.register(SearchedTableViewCell.self, forCellReuseIdentifier: SearchedTableViewCell.reuseIdentifier)
+    return tableView
+  }()
+  
+  private let activityIndicatorView: UIActivityIndicatorView = {
+    let activityIndicatorView = UIActivityIndicatorView()
+    activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+    activityIndicatorView.style = .large
+    activityIndicatorView.hidesWhenStopped = true
+    return activityIndicatorView
+  }()
+  
   // MARK: View lifecycle
   
   override func viewDidLoad()
   {
     super.viewDidLoad()
+    setupUI()
+    setupSubviews()
+    setupConstraints()
     doSomething()
   }
   
-  // MARK: Do something
+  // MARK: UI Setup
   
-  //@IBOutlet weak var nameTextField: UITextField!
+  private func setupUI() {
+    navigationController?.navigationBar.prefersLargeTitles = true
+    navigationItem.searchController = searchController
+    navigationItem.hidesSearchBarWhenScrolling = false
+    view.backgroundColor = .systemBackground
+    title = "검색"
+  }
+  
+  private func setupSubviews() {
+    view.addSubview(tableView)
+    view.addSubview(activityIndicatorView)
+  }
+  
+  private func setupConstraints() {
+    NSLayoutConstraint.activate([
+      tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+      tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+      tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+      tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+      
+      activityIndicatorView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+      activityIndicatorView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+      activityIndicatorView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+      activityIndicatorView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+    ])
+  }
+  
+  // MARK: Do something
   
   func doSomething()
   {
@@ -84,6 +140,6 @@ class ListSearchViewController: UIViewController, ListSearchDisplayLogic
   
   func displaySomething(viewModel: ListSearch.Something.ViewModel)
   {
-    //nameTextField.text = viewModel.name
+    // 임시 구현
   }
 }
