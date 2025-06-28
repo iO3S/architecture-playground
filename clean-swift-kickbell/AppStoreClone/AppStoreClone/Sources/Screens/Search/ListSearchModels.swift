@@ -75,36 +75,22 @@ enum ListSearch
   
   // 앱 검색 결과 DTO
   struct AppSearchResultDTO: Equatable {
-    let trackId: Int
-    let trackName: String
-    let description: String
-    let artistName: String
-    let averageUserRating: Float
-    let screenshotUrls: [String]
-    let artworkUrl100: String
-    let formattedPrice: String
-    let genres: [String]
-    
-    // 기본 값으로 초기화하는 생성자 추가
-    init(trackId: Int = 0,
-         trackName: String = "",
-         description: String = "",
-         artistName: String = "",
-         averageUserRating: Float = 0.0,
-         screenshotUrls: [String] = [],
-         artworkUrl100: String = "",
-         formattedPrice: String = "",
-         genres: [String] = []) {
-      self.trackId = trackId
-      self.trackName = trackName
-      self.description = description
-      self.artistName = artistName
-      self.averageUserRating = averageUserRating
-      self.screenshotUrls = screenshotUrls
-      self.artworkUrl100 = artworkUrl100
-      self.formattedPrice = formattedPrice
-      self.genres = genres
-    }
+      let screenshotImages: [String]
+      let ipadScreenshotUrls: [String]
+      let artworkUrl512: String
+      let languageCodesISO2A: [String]
+      let contentAdvisoryRating: String
+      let trackContentRating: String
+      let sellerName: String
+      let trackName: String
+      let currentVersionReleaseDate: String
+      let releaseNotes: String
+      let version: String
+      let description: String
+      let artistName: String
+      let genres: [String]
+      let averageUserRating: Double
+      let userRatingCount: String
   }
   
   // 화면에 표시할 검색 항목 DTO

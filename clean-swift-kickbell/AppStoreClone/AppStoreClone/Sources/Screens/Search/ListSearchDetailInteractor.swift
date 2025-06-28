@@ -12,19 +12,19 @@ protocol ListSearchDetailBusinessLogic {
 }
 
 protocol ListSearchDetailDataStore {
-    var appData: ListSearch.AppSearchResultDTO { get set }
+    var searchResults: ListSearch.AppSearchResultDTO! { get set }
 }
 
 class ListSearchDetailInteractor: ListSearchDetailBusinessLogic, ListSearchDetailDataStore {
     var presenter: ListSearchDetailPresentationLogic?
     
     // DataStore
-    var appData: ListSearch.AppSearchResultDTO = ListSearch.AppSearchResultDTO()
+    var searchResults: ListSearch.AppSearchResultDTO!
     
     // MARK: Business Logic
     
     func showAppDetail(request: ListSearchDetail.ShowAppDetail.Request) {
-        let response = ListSearchDetail.ShowAppDetail.Response(appData: appData)
+        let response = ListSearchDetail.ShowAppDetail.Response(appData: searchResults)
         presenter?.presentAppDetail(response: response)
     }
 }

@@ -15,15 +15,22 @@ struct AppSearchResponseModel: Decodable {
 
 // 앱 검색 결과 모델
 struct AppSearchResultModel: Decodable {
-    let trackId: Int
+    let screenshotUrls: [String]
+    let ipadScreenshotUrls: [String]
+    let artworkUrl512: String
+    let languageCodesISO2A: [String]
+    let contentAdvisoryRating: String
+    let trackContentRating: String
+    let sellerName: String
     let trackName: String
+    let currentVersionReleaseDate: String
+    let releaseNotes: String
+    let version: String
     let description: String
     let artistName: String
-    let averageUserRating: Float
-    let screenshotUrls: [String]
-    let artworkUrl100: String
-    let formattedPrice: String
     let genres: [String]
+    let averageUserRating: Double
+    let userRatingCount: Int64
 }
 
 // 앱 검색 요청 구현

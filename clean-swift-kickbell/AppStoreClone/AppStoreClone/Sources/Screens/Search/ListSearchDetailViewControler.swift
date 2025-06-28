@@ -11,10 +11,6 @@ protocol ListSearchDetailDisplayLogic: AnyObject {
     func displayAppDetail(viewModel: ListSearchDetail.ShowAppDetail.ViewModel)
 }
 
-protocol ListSearchDetailDataStore {
-    var appData: ListSearch.AppSearchResultDTO { get set }
-}
-
 class ListSearchDetailViewControler: UIViewController, ListSearchDetailDisplayLogic {
     //MARK: - Properties
     
@@ -22,7 +18,7 @@ class ListSearchDetailViewControler: UIViewController, ListSearchDetailDisplayLo
     var router: (NSObjectProtocol & ListSearchDetailRoutingLogic & ListSearchDetailDataPassing)?
     
     // DataStore
-    private var appData: ListSearch.AppSearchResultDTO = ListSearch.AppSearchResultDTO()
+    private var appData: ListSearch.AppSearchResultDTO!
     
     //MARK: - LifeCycles
     
@@ -84,8 +80,8 @@ class ListSearchDetailViewControler: UIViewController, ListSearchDetailDisplayLo
         router.dataStore = interactor
         
         // 라우터의 dataStore에 데이터 설정
-        if let appData = router.dataStore?.appData {
-            interactor.appData = appData
+        if let appData = router.dataStore?.searchResults {
+            interactor.searchResults = appData
         }
     }
     
@@ -94,43 +90,16 @@ class ListSearchDetailViewControler: UIViewController, ListSearchDetailDisplayLo
     func displayAppDetail(viewModel: ListSearchDetail.ShowAppDetail.ViewModel) {
         // 앱 상세 데이터로 UI 업데이트
         title = viewModel.appData.trackName
-        appIconDetailView.configure(with: viewModel.appData)
-        appInfoDetailView.configure(with: viewModel.appData)
-        releaseNoteView.configure(with: viewModel.appData.releaseNotes ?? "")
-    }
-    
-    private let screenshotsPreviewView = ScreenshotsPreviewView()
-    
-    private let newFeatureView = NewFeatureView()
-    
-    private let descriptionView = ShowMoreView()
-    
-    private let subtitleView = SubtitleView()
-}
-
-
-//MARK: - Methods
-
-
-extension ListSearchDetailViewControler {
-    private func createView<T: UIView>(
-        _ viewType: T.Type,
-        initializer: (() -> T)? = nil) -> T {
-            if let initializer = initializer {
-                return initializer()
-            } else {
-                return T.init()
-            }
-        }
-    
-    
-    func configure(with info: SearchViewModel) {
+        
+        let info: ListSearch.AppSearchResultDTO = viewModel.appData
+        
         let appIconContainerInfo = AppIconDetailView.Info(
             artworkUrl512: info.artworkUrl512,
             sellerName: info.sellerName,
             trackName: info.trackName
         )
         appIconDetailView.info = appIconContainerInfo
+        
         
         let appInfoContainerInfo = AppInfoDetailView.Info(
             userRatingCount: info.userRatingCount,
@@ -166,6 +135,30 @@ extension ListSearchDetailViewControler {
         let subtitleInfo = SubtitleView.Info(title: info.artistName, subtitle: "개발자")
         subtitleView.info = subtitleInfo
     }
+    
+    private let screenshotsPreviewView = ScreenshotsPreviewView()
+    
+    private let newFeatureView = NewFeatureView()
+    
+    private let descriptionView = ShowMoreView()
+    
+    private let subtitleView = SubtitleView()
+}
+
+
+//MARK: - Methods
+
+
+extension ListSearchDetailViewControler {
+    private func createView<T: UIView>(
+        _ viewType: T.Type,
+        initializer: (() -> T)? = nil) -> T {
+            if let initializer = initializer {
+                return initializer()
+            } else {
+                return T.init()
+            }
+        }
 }
 
 

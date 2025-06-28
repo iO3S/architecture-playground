@@ -35,15 +35,22 @@ final class AppSearchServiceImp: AppSearchServiceProtocol {
                     // 검색 결과를 DTO로 변환
                     let dtoResults = response.results.map { model -> ListSearch.AppSearchResultDTO in
                         return ListSearch.AppSearchResultDTO(
-                            trackId: model.trackId,
+                            screenshotImages: model.screenshotUrls,
+                            ipadScreenshotUrls: model.ipadScreenshotUrls,
+                            artworkUrl512: model.artworkUrl512,
+                            languageCodesISO2A: model.languageCodesISO2A,
+                            contentAdvisoryRating: model.contentAdvisoryRating,
+                            trackContentRating: model.trackContentRating,
+                            sellerName: model.sellerName,
                             trackName: model.trackName,
-                            description: model.description,
+                            currentVersionReleaseDate: model.trackName,
+                            releaseNotes: model.releaseNotes,
+                            version: model.version,
+                            description:model.description,
                             artistName: model.artistName,
+                            genres: model.genres,
                             averageUserRating: model.averageUserRating,
-                            screenshotUrls: model.screenshotUrls,
-                            artworkUrl100: model.artworkUrl100,
-                            formattedPrice: model.formattedPrice,
-                            genres: model.genres
+                            userRatingCount: "\(model.userRatingCount)"
                         )
                     }
                     continuation.resume(returning: dtoResults)

@@ -12,7 +12,7 @@
 
 import UIKit
 
-protocol ListSearchDisplayLogic: class
+protocol ListSearchDisplayLogic: AnyObject
 {
   func displaySomething(viewModel: ListSearch.Something.ViewModel)
   func displayUpdatedSearchQuery(viewModel: ListSearch.UpdateSearchQuery.ViewModel)
@@ -74,7 +74,7 @@ class ListSearchViewController: UIViewController, ListSearchDisplayLogic, UISear
     return searchControler
   }()
   
-  private let tableView: UITableView = {
+  let tableView: UITableView = {
     let tableView = UITableView()
     tableView.translatesAutoresizingMaskIntoConstraints = false
     tableView.separatorInset.right = 20
