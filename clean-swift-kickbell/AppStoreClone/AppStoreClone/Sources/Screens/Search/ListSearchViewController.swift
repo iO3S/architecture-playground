@@ -14,7 +14,6 @@ import UIKit
 
 protocol ListSearchDisplayLogic: AnyObject
 {
-  func displaySomething(viewModel: ListSearch.Something.ViewModel)
   func displayUpdatedSearchQuery(viewModel: ListSearch.UpdateSearchQuery.ViewModel)
   func displaySearchResults(viewModel: ListSearch.PerformSearch.ViewModel)
 }
@@ -100,7 +99,6 @@ class ListSearchViewController: UIViewController, ListSearchDisplayLogic, UISear
     setupUI()
     setupSubviews()
     setupConstraints()
-    doSomething()
   }
   
   // MARK: UI Setup
@@ -138,17 +136,6 @@ class ListSearchViewController: UIViewController, ListSearchDisplayLogic, UISear
   }
   
   // MARK: Do something
-  
-  func doSomething()
-  {
-    let request = ListSearch.Something.Request()
-    interactor?.doSomething(request: request)
-  }
-  
-  func displaySomething(viewModel: ListSearch.Something.ViewModel)
-  {
-    // 임시 구현
-  }
   
   // 검색 관련 데이터 저장을 위한 변수
   private var recentSearchItems: [ListSearch.SearchDisplayItemDTO] = []
@@ -213,9 +200,8 @@ extension ListSearchViewController : UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.configure(with: data)
-            cell.tapClosure = { [weak self] in 
-                // 코디네이터를 통해 앱 상세 화면으로 이동
-//                self?.router?.routeToAppDetail(with: data)
+            cell.tapClosure = { [weak self] in
+//                self?.router?.routeToAppDetail(segue: nil)
             }
             return cell
             
@@ -267,36 +253,7 @@ extension ListSearchViewController : UITableViewDataSource {
 
 extension ListSearchViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        // 검색 결과가 있으면 검색 결과 항목, 없으면 최근 검색어 항목 처리
-        let item = !searchResultItems.isEmpty ? searchResultItems[indexPath.row] : recentSearchItems[indexPath.row]
-        
-        switch item.type {
-        case let .app(data):
-            // 코디네이터를 통해 앱 상세 화면으로 이동
-            print(data)
-//            router?.routeToAppDetail(with: data)
-            
-        case let .recent(text):
-            // 최근 검색어 클릭 시 검색 실행
-            searchController.searchBar.text = text
-            searchController.searchBar.becomeFirstResponder()
-            let request = ListSearch.PerformSearch.Request(query: text)
-            interactor?.performSearch(request: request)
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        // 검색 결과와 최근 검색어에 따라 다른 높이 적용
-        let item = !searchResultItems.isEmpty ? searchResultItems[indexPath.row] : recentSearchItems[indexPath.row]
-        
-        switch item.type {
-        case .app:
-            return 180  // 앱 검색 결과는 스크린샷 표시를 위해 더 크게
-        case .recent:
-            return 44   // 최근 검색어는 기본 셀 높이
-        }
+        router?.routeToAppDetail(segue: nil)
     }
 }
 

@@ -14,7 +14,6 @@ import UIKit
 
 protocol ListSearchBusinessLogic
 {
-  func doSomething(request: ListSearch.Something.Request)
   func updateSearchQuery(request: ListSearch.UpdateSearchQuery.Request)
   func performSearch(request: ListSearch.PerformSearch.Request)
 }
@@ -56,13 +55,6 @@ class ListSearchInteractor: ListSearchBusinessLogic, ListSearchDataStore
   }
   
   // MARK: Business Logic
-  
-  func doSomething(request: ListSearch.Something.Request)
-  {
-    // 기본 구현 - 필요시 실제 로직 추가
-    let response = ListSearch.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
   
   // 검색어 업데이트 로직
   func updateSearchQuery(request: ListSearch.UpdateSearchQuery.Request)
@@ -126,9 +118,7 @@ class ListSearchInteractor: ListSearchBusinessLogic, ListSearchDataStore
         // 검색 결과 저장
         self.searchResults = searchResults
         self.currentQuery = request.query
-          
-        print(searchResults, "ss")
-        
+                  
         // 검색 결과를 presenter에 전달
         let response = ListSearch.PerformSearch.Response(
           searchResults: searchResults,

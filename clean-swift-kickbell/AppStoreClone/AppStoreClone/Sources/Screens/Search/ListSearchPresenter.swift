@@ -14,7 +14,6 @@ import UIKit
 
 protocol ListSearchPresentationLogic
 {
-  func presentSomething(response: ListSearch.Something.Response)
   func presentUpdatedSearchQuery(response: ListSearch.UpdateSearchQuery.Response)
   func presentSearchResults(response: ListSearch.PerformSearch.Response)
 }
@@ -24,12 +23,6 @@ class ListSearchPresenter: ListSearchPresentationLogic
   weak var viewController: ListSearchDisplayLogic?
   
   // MARK: Do something
-  
-  func presentSomething(response: ListSearch.Something.Response)
-  {
-    let viewModel = ListSearch.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
-  }
   
   // MARK: Search Query
   

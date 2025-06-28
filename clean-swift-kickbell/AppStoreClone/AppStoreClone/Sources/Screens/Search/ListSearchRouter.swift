@@ -31,23 +31,17 @@ class ListSearchRouter: NSObject, ListSearchRoutingLogic, ListSearchDataPassing
   
   func routeToAppDetail(segue: UIStoryboardSegue?)
   {
-    if let segue = segue {
-      let destinationVC = segue.destination as! ListSearchDetailViewControler
-      var destinationDS = destinationVC.router!.dataStore!
-      passDataToAppDetail(source: dataStore!, destination: &destinationDS)
-    } else {
       let destinationVC = ListSearchDetailViewControler()
       var destinationDS = destinationVC.router!.dataStore!
       passDataToAppDetail(source: dataStore!, destination: &destinationDS)
       navigateToAppDetail(source: viewController!, destination: destinationVC)
-    }
   }
 
   // MARK: Navigation
   
   func navigateToAppDetail(source: ListSearchViewController, destination: ListSearchDetailViewControler)
   {
-    source.show(destination, sender: nil)
+      source.navigationController?.pushViewController(destination, animated: true)
   }
   
   // MARK: Passing data

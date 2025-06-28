@@ -15,21 +15,6 @@ import UIKit
 enum ListSearch
 {
   // MARK: Use cases
-  
-  // 기본 Something 유즈케이스 유지 (임시)
-  enum Something
-  {
-    struct Request
-    {
-    }
-    struct Response
-    {
-    }
-    struct ViewModel
-    {
-    }
-  }
-  
   // 검색어 업데이트 유즈케이스
   enum UpdateSearchQuery
   {

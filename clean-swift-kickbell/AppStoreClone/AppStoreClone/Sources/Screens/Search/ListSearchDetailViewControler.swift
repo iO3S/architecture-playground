@@ -23,10 +23,19 @@ class ListSearchDetailViewControler: UIViewController, ListSearchDetailDisplayLo
     //MARK: - LifeCycles
     
     
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setupVIPCycle()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupVIPCycle()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        setupVIPCycle()
         
         // 데이터 로드 요청
         let request = ListSearchDetail.ShowAppDetail.Request()
@@ -89,7 +98,6 @@ class ListSearchDetailViewControler: UIViewController, ListSearchDetailDisplayLo
     
     func displayAppDetail(viewModel: ListSearchDetail.ShowAppDetail.ViewModel) {
         // 앱 상세 데이터로 UI 업데이트
-        title = viewModel.appData.trackName
         
         let info: ListSearch.AppSearchResultDTO = viewModel.appData
         
