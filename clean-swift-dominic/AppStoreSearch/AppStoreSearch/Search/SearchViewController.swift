@@ -22,6 +22,8 @@ protocol SearchDisplayLogic: class
 class SearchViewController: UIViewController, SearchDisplayLogic
 {
     let searchView = SearchView()
+    let tableView = UITableView()
+    
     var interactor: SearchBusinessLogic?
     var router: (NSObjectProtocol & SearchRoutingLogic & SearchDataPassing)?
     
@@ -78,12 +80,27 @@ class SearchViewController: UIViewController, SearchDisplayLogic
     }
     
     private func setAutolayout() {
+        setSearchView()
+        setTableView()
+    }
+    
+    private func setSearchView() {
         view.addSubview(searchView)
         searchView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(30)
+            make.horizontalEdges.equalToSuperview().inset(10)
             make.top.equalTo(view.safeAreaLayoutGuide).inset(10)
             make.height.equalTo(50)
         }
+    }
+    
+    private func setTableView() {
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.top.equalTo(searchView.snp.bottom).offset(5)
+            make.bottom.equalToSuperview()
+        }
+        tableView.backgroundColor = .black
     }
     
     // MARK: Do something
