@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B60CAB042E12305D00AE1601 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = B60CAB032E12305D00AE1601 /* Kingfisher */; };
+		B60CAB072E12314900AE1601 /* Cosmos in Frameworks */ = {isa = PBXBuildFile; productRef = B60CAB062E12314900AE1601 /* Cosmos */; };
 		B65BFA3E2E0636AE00F1FB0D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B65BFA3D2E0636AE00F1FB0D /* SnapKit */; };
 		B65BFA5A2E0638F300F1FB0D /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = B65BFA592E0638F300F1FB0D /* Then */; };
 /* End PBXBuildFile section */
@@ -41,7 +43,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B60CAB042E12305D00AE1601 /* Kingfisher in Frameworks */,
 				B65BFA3E2E0636AE00F1FB0D /* SnapKit in Frameworks */,
+				B60CAB072E12314900AE1601 /* Cosmos in Frameworks */,
 				B65BFA5A2E0638F300F1FB0D /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,6 +91,8 @@
 			packageProductDependencies = (
 				B65BFA3D2E0636AE00F1FB0D /* SnapKit */,
 				B65BFA592E0638F300F1FB0D /* Then */,
+				B60CAB032E12305D00AE1601 /* Kingfisher */,
+				B60CAB062E12314900AE1601 /* Cosmos */,
 			);
 			productName = AppStoreSearch;
 			productReference = B65BFA242E06367400F1FB0D /* AppStoreSearch.app */;
@@ -119,6 +125,8 @@
 			packageReferences = (
 				B65BFA3C2E0636AE00F1FB0D /* XCRemoteSwiftPackageReference "SnapKit" */,
 				B65BFA582E0638F300F1FB0D /* XCRemoteSwiftPackageReference "Then" */,
+				B60CAB022E12305D00AE1601 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				B60CAB052E12314900AE1601 /* XCRemoteSwiftPackageReference "Cosmos" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B65BFA252E06367400F1FB0D /* Products */;
@@ -350,6 +358,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B60CAB022E12305D00AE1601 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.3.3;
+			};
+		};
+		B60CAB052E12314900AE1601 /* XCRemoteSwiftPackageReference "Cosmos" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/Cosmos";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 25.0.1;
+			};
+		};
 		B65BFA3C2E0636AE00F1FB0D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -369,6 +393,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B60CAB032E12305D00AE1601 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B60CAB022E12305D00AE1601 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		B60CAB062E12314900AE1601 /* Cosmos */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B60CAB052E12314900AE1601 /* XCRemoteSwiftPackageReference "Cosmos" */;
+			productName = Cosmos;
+		};
 		B65BFA3D2E0636AE00F1FB0D /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B65BFA3C2E0636AE00F1FB0D /* XCRemoteSwiftPackageReference "SnapKit" */;
