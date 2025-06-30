@@ -1,5 +1,5 @@
 //
-//  InstalledAppTableViewCell.swift
+//  AppInfoTableViewCell.swift
 //  AppStoreSearch
 //
 //  Created by 도미닉 on 6/29/25.
@@ -7,8 +7,9 @@
 
 import UIKit
 
-class InstalledAppTableViewCell: UITableViewCell {
-
+class AppInfoTableViewCell: UITableViewCell {
+    let appIconListView = AppIconListView()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
