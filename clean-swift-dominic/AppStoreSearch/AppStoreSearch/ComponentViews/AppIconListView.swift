@@ -192,5 +192,12 @@ extension AppIconListView {
 }
 
 #Preview {
-    AppIconListView()
+    AppIconListView().then {
+        let appIconListinfo = AppIconListView.Info(
+            artworkUrl512: "https://littledeep.com/wp-content/uploads/2020/09/naver-icon-style.png",
+            sellerName: "네이버 - NAVER",
+            trackName: "NAVER Corp."
+        )
+        $0.configure(with: appIconListinfo)
+    }
 }
