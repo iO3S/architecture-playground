@@ -89,18 +89,22 @@ extension AppInfoDetailView {
       artistName: info.artistName,
       languageCodesISO2A: info.languageCodesISO2A
     )
+      
+    let subViews = [
+        ViewFactory.create(AppInfoVStackView.self, info: appInfo, style: .star),
+        ViewFactory.create(SeparatorView.self, direction: .vertical),
+        ViewFactory.create(AppInfoVStackView.self, info: appInfo, style: .age),
+        ViewFactory.create(SeparatorView.self, direction: .vertical),
+        ViewFactory.create(AppInfoVStackView.self, info: appInfo, style: .genre),
+        ViewFactory.create(SeparatorView.self, direction: .vertical),
+        ViewFactory.create(AppInfoVStackView.self, info: appInfo, style: .artist),
+        ViewFactory.create(SeparatorView.self, direction: .vertical),
+        ViewFactory.create(AppInfoVStackView.self, info: appInfo, style: .language),
+      ]
     
-    horizontalStackView.addArrangedSubviews([
-      ViewFactory.create(AppInfoVStackView.self, info: appInfo, style: .star),
-      ViewFactory.create(SeparatorView.self, direction: .vertical),
-      ViewFactory.create(AppInfoVStackView.self, info: appInfo, style: .age),
-      ViewFactory.create(SeparatorView.self, direction: .vertical),
-      ViewFactory.create(AppInfoVStackView.self, info: appInfo, style: .genre),
-      ViewFactory.create(SeparatorView.self, direction: .vertical),
-      ViewFactory.create(AppInfoVStackView.self, info: appInfo, style: .artist),
-      ViewFactory.create(SeparatorView.self, direction: .vertical),
-      ViewFactory.create(AppInfoVStackView.self, info: appInfo, style: .language),
-    ])
+      for subView in subViews {
+          horizontalStackView.addArrangedSubview(subView)
+      }
   }
 }
 
@@ -147,4 +151,8 @@ extension AppInfoDetailView {
   private func setupDelegates() {
     
   }
+}
+
+#Preview {
+    AppInfoDetailView()
 }

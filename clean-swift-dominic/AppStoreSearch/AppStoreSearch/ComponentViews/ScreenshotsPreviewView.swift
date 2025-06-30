@@ -108,8 +108,8 @@ class ScreenshotsPreviewView: UIView {
         return button
     }()
     
-    private let deviceTypeStackView: UIStackView = {
-        let stackView = UIStackView()
+    private lazy var deviceTypeStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [deviceTypeButton, expandButton])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
@@ -118,8 +118,8 @@ class ScreenshotsPreviewView: UIView {
         return stackView
     }()
     
-    private let totalStackView: UIStackView = {
-        let stackView = UIStackView()
+    private lazy var totalStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [previewTitleLabel, scrollView, deviceTypeStackView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fill
@@ -218,8 +218,6 @@ extension ScreenshotsPreviewView {
     private func setupViews() {
         contentView.addSubview(screenShotStackView)
         scrollView.addSubview(contentView)
-        deviceTypeStackView.addArrangedSubviews([deviceTypeButton, expandButton])
-        totalStackView.addArrangedSubviews([previewTitleLabel, scrollView, deviceTypeStackView])
         addSubview(totalStackView)
     }
     
@@ -256,3 +254,6 @@ extension ScreenshotsPreviewView {
     }
 }
 
+#Preview {
+    ScreenshotsPreviewView()
+}

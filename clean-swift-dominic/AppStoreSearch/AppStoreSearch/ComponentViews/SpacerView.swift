@@ -45,3 +45,7 @@ class SpacerView: UIView {
         super.init(coder: coder)
     }
 }
+
+#Preview {
+    SpacerView(for: .vertical)
+}

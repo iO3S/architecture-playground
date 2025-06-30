@@ -83,8 +83,8 @@ class NewFeatureView: UIView {
         return label
     }()
     
-    private let topStackView: UIStackView = {
-        let stackView = UIStackView()
+    private lazy var topStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [newFeatureLabel, versionHistoryButton])
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.spacing = 10
@@ -92,8 +92,8 @@ class NewFeatureView: UIView {
         return stackView
     }()
     
-    private let bottomStackView: UIStackView = {
-        let stackView = UIStackView()
+    private lazy var bottomStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [versionLabel, lastUpdatedLabel])
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.spacing = 10
@@ -101,8 +101,8 @@ class NewFeatureView: UIView {
         return stackView
     }()
     
-    private let stackView: UIStackView = {
-        let stackView = UIStackView()
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [topStackView, bottomStackView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fill
@@ -163,9 +163,6 @@ extension NewFeatureView {
     }
     
     private func setupViews() {
-        topStackView.addArrangedSubviews([newFeatureLabel, versionHistoryButton])
-        bottomStackView.addArrangedSubviews([versionLabel, lastUpdatedLabel])
-        stackView.addArrangedSubviews([topStackView, bottomStackView])
         addSubview(stackView)
     }
     
@@ -181,4 +178,8 @@ extension NewFeatureView {
     private func setupNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleContentSize), name: UIContentSizeCategory.didChangeNotification, object: nil)
     }
+}
+
+#Preview {
+    NewFeatureView()
 }

@@ -90,8 +90,8 @@ class AppIconListView: UIView {
         return button
     }()
     
-    private let vStackView: UIStackView = {
-        let stackView = UIStackView()
+    private lazy var vStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel, SpacerView()])
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.spacing = 0
@@ -99,8 +99,8 @@ class AppIconListView: UIView {
         return stackView
     }()
     
-    private let totalStackView: UIStackView = {
-        let stackView = UIStackView()
+    private lazy var totalStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [iconImageView, vStackView, downloadButton])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .fill
@@ -171,8 +171,6 @@ extension AppIconListView {
     }
     
     private func setupViews() {
-        vStackView.addArrangedSubviews([titleLabel, subtitleLabel, SpacerView()])
-        totalStackView.addArrangedSubviews([iconImageView, vStackView, downloadButton])
         addSubview(totalStackView)
     }
     
@@ -193,3 +191,6 @@ extension AppIconListView {
     }
 }
 
+#Preview {
+    AppIconListView()
+}

@@ -88,3 +88,7 @@ class SubtitleView: UIView {
         ])
     }
 }
+
+#Preview {
+    SubtitleView()
+}

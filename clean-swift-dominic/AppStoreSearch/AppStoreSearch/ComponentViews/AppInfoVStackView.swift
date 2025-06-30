@@ -102,8 +102,12 @@ class AppInfoVStackView: UIView {
     return starRatingView
   }()
   
-  private let stackView: UIStackView = {
-    let stackView = UIStackView()
+  private lazy var stackView: UIStackView = {
+      let stackView = UIStackView(arrangedSubviews: [topLabel,
+                                  middleLabel,
+                                  imageView,
+                                  bottomLabel,
+                                  starRatingView])
     stackView.translatesAutoresizingMaskIntoConstraints = false
     stackView.axis = .vertical
     stackView.distribution = .fillProportionally
@@ -175,13 +179,6 @@ extension AppInfoVStackView {
   }
   
   private func setupViews() {
-    stackView.addArrangedSubviews([
-      topLabel,
-      middleLabel,
-      imageView,
-      bottomLabel,
-      starRatingView,
-    ])
     addSubview(stackView)
   }
   
@@ -201,4 +198,24 @@ extension AppInfoVStackView {
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
     stackView.addGestureRecognizer(tapGesture)
   }
+}
+
+#Preview {
+    ViewFactory.create(AppInfoVStackView.self, info: .init(userRatingCount: "50000", averageUserRating: 4.5, contentAdvisoryRating: "4.5", trackContentRating: "15", genres: ["코메디"], artistName: "도미닉", languageCodesISO2A: ["korea"]), style: .star)
+}
+
+#Preview {
+    ViewFactory.create(AppInfoVStackView.self, info: .init(userRatingCount: "50000", averageUserRating: 4.5, contentAdvisoryRating: "4.5", trackContentRating: "15", genres: ["코메디"], artistName: "도미닉", languageCodesISO2A: ["korea"]), style: .age)
+}
+
+#Preview {
+    ViewFactory.create(AppInfoVStackView.self, info: .init(userRatingCount: "50000", averageUserRating: 4.5, contentAdvisoryRating: "4.5", trackContentRating: "15", genres: ["코메디"], artistName: "도미닉", languageCodesISO2A: ["korea"]), style: .genre)
+}
+
+#Preview {
+    ViewFactory.create(AppInfoVStackView.self, info: .init(userRatingCount: "50000", averageUserRating: 4.5, contentAdvisoryRating: "4.5", trackContentRating: "15", genres: ["코메디"], artistName: "도미닉", languageCodesISO2A: ["korea"]), style: .artist)
+}
+
+#Preview {
+    ViewFactory.create(AppInfoVStackView.self, info: .init(userRatingCount: "50000", averageUserRating: 4.5, contentAdvisoryRating: "4.5", trackContentRating: "15", genres: ["코메디"], artistName: "도미닉", languageCodesISO2A: ["korea"]), style: .language)
 }

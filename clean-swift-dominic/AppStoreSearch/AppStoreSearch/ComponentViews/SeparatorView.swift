@@ -76,3 +76,7 @@ extension SeparatorView {
     }
   }
 }
+
+#Preview {
+    SeparatorView(direction: .vertical)
+}

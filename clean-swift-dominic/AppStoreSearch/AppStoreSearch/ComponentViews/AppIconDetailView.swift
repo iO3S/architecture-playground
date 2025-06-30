@@ -107,8 +107,8 @@ class AppIconDetailView: UIView {
         return button
     }()
     
-    private let vStackView: UIStackView = {
-        let stackView = UIStackView()
+    private lazy var vStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel, SpacerView(for: .vertical), buttonsStackView])
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.spacing = 0
@@ -116,8 +116,8 @@ class AppIconDetailView: UIView {
         return stackView
     }()
     
-    private let buttonsStackView: UIStackView = {
-        let stackView = UIStackView()
+    private lazy var buttonsStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [downloadButton, shareButton])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
@@ -126,8 +126,8 @@ class AppIconDetailView: UIView {
         return stackView
     }()
     
-    private let totalStackView: UIStackView = {
-        let stackView = UIStackView()
+    private lazy var totalStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [iconImageView, vStackView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .fill
@@ -194,9 +194,6 @@ extension AppIconDetailView {
     }
     
     private func setupViews() {
-        buttonsStackView.addArrangedSubviews([downloadButton, shareButton])
-        vStackView.addArrangedSubviews([titleLabel, subtitleLabel, SpacerView(for: .vertical), buttonsStackView])
-        totalStackView.addArrangedSubviews([iconImageView, vStackView])
         addSubview(totalStackView)
     }
     
@@ -217,4 +214,8 @@ extension AppIconDetailView {
     private func setupNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleContentSize), name: UIContentSizeCategory.didChangeNotification, object: nil)
     }
+}
+
+#Preview {
+    AppIconDetailView()
 }
