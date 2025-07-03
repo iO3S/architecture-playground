@@ -16,7 +16,7 @@ enum Search
 {
   // MARK: Use cases
   
-  enum Something
+  enum FetchAppInfos
   {
     struct Request
     {

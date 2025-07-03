@@ -16,7 +16,7 @@ import SnapKit
 
 protocol SearchDisplayLogic: class
 {
-    func displaySomething(viewModel: Search.Something.ViewModel)
+    func displaySomething(viewModel: Search.FetchAppInfos.ViewModel)
 }
 
 class SearchViewController: UIViewController, SearchDisplayLogic
@@ -74,14 +74,9 @@ class SearchViewController: UIViewController, SearchDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        doSomething()
         setAutolayout()
-        view.backgroundColor = .black
-        tableView.register(AppInfoTableViewCell.self, forCellReuseIdentifier: "AppInfoTableViewCell")
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-        tableView.separatorColor = .lightGray
+        setupTableView()
+        interactor?.fetchAppInfos(request: Search.FetchAppInfos.Request())
     }
     
     private func setAutolayout() {
@@ -98,6 +93,15 @@ class SearchViewController: UIViewController, SearchDisplayLogic
         }
     }
     
+    private func setupTableView() {
+        view.backgroundColor = .black
+        tableView.register(AppInfoTableViewCell.self, forCellReuseIdentifier: "AppInfoTableViewCell")
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        tableView.separatorColor = .lightGray
+    }
+    
     private func setTableView() {
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
@@ -112,16 +116,6 @@ class SearchViewController: UIViewController, SearchDisplayLogic
     
     //@IBOutlet weak var nameTextField: UITextField!
     
-    func doSomething()
-    {
-        let request = Search.Something.Request()
-        interactor?.doSomething(request: request)
-    }
-    
-    func displaySomething(viewModel: Search.Something.ViewModel)
-    {
-        //nameTextField.text = viewModel.name
-    }
 }
 
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
