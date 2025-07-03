@@ -93,8 +93,8 @@ class ScreenshotsPreviewView: UIView {
     
     private let deviceTypeButton: UIButton = {
         let button = UIButton()
-        button.setTitleColor(.secondaryLabel, for: .normal)
-        button.tintColor = .secondaryLabel
+        button.setTitleColor(.lightGray, for: .normal)
+        button.tintColor = .lightGray
         button.titleLabel?.font = UIFont.dynamicSystemFont(for: .subhead)
         return button
     }()

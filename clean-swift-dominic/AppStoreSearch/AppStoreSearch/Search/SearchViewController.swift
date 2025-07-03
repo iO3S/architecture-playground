@@ -77,6 +77,11 @@ class SearchViewController: UIViewController, SearchDisplayLogic
         doSomething()
         setAutolayout()
         view.backgroundColor = .black
+        tableView.register(AppInfoTableViewCell.self, forCellReuseIdentifier: "AppInfoTableViewCell")
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        tableView.separatorColor = .lightGray
     }
     
     private func setAutolayout() {
@@ -116,5 +121,17 @@ class SearchViewController: UIViewController, SearchDisplayLogic
     func displaySomething(viewModel: Search.Something.ViewModel)
     {
         //nameTextField.text = viewModel.name
+    }
+}
+
+extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AppInfoTableViewCell", for: indexPath) as! AppInfoTableViewCell
+        cell.configure()
+        return cell
     }
 }

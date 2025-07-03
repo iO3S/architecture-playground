@@ -59,7 +59,7 @@ class AppIconListView: UIView {
         let label = UILabel()
         label.accessibilityLabel = label.text
         label.font = UIFont.dynamicSystemFont(for: .body)
-        label.textColor = .label
+        label.textColor = .white
         label.setContentHuggingPriority(.required, for: .vertical)
         label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
@@ -69,7 +69,7 @@ class AppIconListView: UIView {
         let label = UILabel()
         label.accessibilityLabel = label.text
         label.font = UIFont.dynamicSystemFont(for: .subhead)
-        label.textColor = .secondaryLabel
+        label.textColor = .lightGray
         label.setContentHuggingPriority(.required, for: .vertical)
         label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
