@@ -19,13 +19,16 @@ protocol SearchPresentationLogic
 
 class SearchPresenter: SearchPresentationLogic
 {
-  weak var viewController: SearchDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentSomething(response: Search.FetchAppInfos.Response)
-  {
-    let viewModel = Search.FetchAppInfos.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
-  }
+    weak var viewController: SearchDisplayLogic?
+    
+    // MARK: Do something
+    
+    func presentSomething(response: Search.FetchAppInfos.Response)
+    {
+        let displayedApps = response.apps.map { searchModel in
+            return Search.FetchAppInfos.ViewModel.DisplayedApp(screenshotUrls: searchModel.screenshotUrls, artworkUrls: searchModel.artworkUrl512, sellerName: searchModel.sellerName, trackName: searchModel.trackName)
+        }
+        let viewModel = Search.FetchAppInfos.ViewModel(displayedApps: displayedApps)
+        viewController?.displaySomething(viewModel: viewModel)
+    }
 }
