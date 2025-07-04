@@ -23,9 +23,19 @@ enum Search
     }
     struct Response
     {
+        var apps: [SearchModel]
     }
     struct ViewModel
     {
+        struct DisplayedApp
+        {
+          var screenshotUrls: String
+          var artworkUrls: String
+          var sellerName: String
+          var trackName: String
+        }
+        
+        var displayedApps: [DisplayedApp]
     }
   }
 }
