@@ -21,6 +21,10 @@ protocol SearchDisplayLogic: class
 
 class SearchViewController: UIViewController, SearchDisplayLogic
 {
+    func displaySomething(viewModel: Search.FetchAppInfos.ViewModel) {
+        print()
+    }
+    
     let searchView = SearchView()
     let tableView = UITableView()
     

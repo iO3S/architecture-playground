@@ -14,7 +14,7 @@ import UIKit
 
 protocol SearchPresentationLogic
 {
-  func presentSomething(response: Search.Something.Response)
+    func presentSomething(response: Search.FetchAppInfos.Response)
 }
 
 class SearchPresenter: SearchPresentationLogic
@@ -23,9 +23,9 @@ class SearchPresenter: SearchPresentationLogic
   
   // MARK: Do something
   
-  func presentSomething(response: Search.Something.Response)
+  func presentSomething(response: Search.FetchAppInfos.Response)
   {
-    let viewModel = Search.Something.ViewModel()
+    let viewModel = Search.FetchAppInfos.ViewModel()
     viewController?.displaySomething(viewModel: viewModel)
   }
 }
