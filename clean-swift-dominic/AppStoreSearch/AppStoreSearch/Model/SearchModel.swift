@@ -8,13 +8,13 @@
 import Foundation
 
 // MARK: - SearchModel
-struct SearchModel: Codable {
+struct SearchResult: Codable {
     let resultCount: Int
-    let results: [Result]
+    let results: [SearchModel]
 }
 
 // MARK: - Result
-struct Result: Codable {
+struct SearchModel: Codable {
     let artistViewURL: String
     let artworkUrl60, artworkUrl100: String
     let isGameCenterEnabled: Bool
