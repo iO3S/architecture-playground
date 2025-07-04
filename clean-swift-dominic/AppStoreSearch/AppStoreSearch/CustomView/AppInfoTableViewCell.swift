@@ -37,18 +37,29 @@ class AppInfoTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure() {
+    override func prepareForReuse() {
         let appIconListinfo = AppIconListView.Info(
-            artworkUrl512: "https://littledeep.com/wp-content/uploads/2020/09/naver-icon-style.png",
-            sellerName: "네이버 - NAVER",
-            trackName: "NAVER Corp."
+            artworkUrl512: "",
+            sellerName: "",
+            trackName: ""
+        )
+        appIconListView.configure(with: appIconListinfo)
+        
+        
+    }
+    
+    func configure(model: Search.FetchAppInfos.ViewModel.DisplayedApp) {
+        let appIconListinfo = AppIconListView.Info(
+            artworkUrl512: model.artworkUrl512,
+            sellerName: model.sellerName,
+            trackName: model.trackName
         )
         appIconListView.configure(with: appIconListinfo)
         
         let width = UIScreen.main.bounds.width/3 - 20
         let height = width * 2
         let screenshotsPreviewInfo = ScreenshotsPreviewView.Info(
-            images: ["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/1d/f4/87/1df48778-4b7b-3c26-e1b4-40c917d61283/Appstore_Preview_Plus_01.png/392x696bb.png", "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/73/a0/da/73a0daa5-51b4-69bd-58ed-bdfd91a96ed4/Appstore_Preview_Plus_02.png/392x696bb.png", "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/a0/83/16/a08316f7-b841-2ecc-c97c-49a1a5a2ec8e/Appstore_Preview_Plus_03.png/392x696bb.png"],
+            images: model.screenshotUrls,
             imageSize: CGSize(width: width, height: height),
             type: .iphone
         )

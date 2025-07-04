@@ -82,7 +82,8 @@ class SearchViewController: UIViewController, SearchDisplayLogic
     }
     
     func displaySomething(viewModel: Search.FetchAppInfos.ViewModel) {
-        print(viewModel)
+        displayedOrders = viewModel.displayedApps
+        tableView.reloadData()
     }
     
     private func setTextField() {
@@ -136,7 +137,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AppInfoTableViewCell", for: indexPath) as! AppInfoTableViewCell
-        cell.configure()
+        cell.configure(model: displayedOrders[indexPath.row])
         return cell
     }
 }
