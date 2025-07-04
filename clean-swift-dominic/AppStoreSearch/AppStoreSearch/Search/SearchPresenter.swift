@@ -26,7 +26,7 @@ class SearchPresenter: SearchPresentationLogic
     func presentSomething(response: Search.FetchAppInfos.Response)
     {
         let displayedApps = response.apps.map { searchModel in
-            return Search.FetchAppInfos.ViewModel.DisplayedApp(screenshotUrls: searchModel.screenshotUrls, artworkUrls: searchModel.artworkUrl512, sellerName: searchModel.sellerName, trackName: searchModel.trackName)
+            return Search.FetchAppInfos.ViewModel.DisplayedApp(screenshotUrls: searchModel.screenshotUrls, artworkUrl512: searchModel.artworkUrl512, sellerName: searchModel.sellerName, trackName: searchModel.trackName)
         }
         let viewModel = Search.FetchAppInfos.ViewModel(displayedApps: displayedApps)
         viewController?.displaySomething(viewModel: viewModel)

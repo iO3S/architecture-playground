@@ -31,7 +31,7 @@ enum Search
         struct DisplayedApp
         {
           var screenshotUrls: [String]
-          var artworkUrls: String
+          var artworkUrl512: String
           var sellerName: String
           var trackName: String
         }
