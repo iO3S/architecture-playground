@@ -20,10 +20,11 @@ struct SearchModel: Codable {
     let isGameCenterEnabled: Bool
     let screenshotUrls, ipadScreenshotUrls: [String]
     let artworkUrl512: String
-    let supportedDevices: [String]
+    let sellerName: String
+    let trackName: String
 
     enum CodingKeys: String, CodingKey {
         case artistViewURL = "artistViewUrl"
-        case artworkUrl60, artworkUrl100, isGameCenterEnabled, screenshotUrls, ipadScreenshotUrls, artworkUrl512, supportedDevices
+        case artworkUrl60, artworkUrl100, isGameCenterEnabled, screenshotUrls, ipadScreenshotUrls, artworkUrl512, sellerName, trackName
     }
 }
