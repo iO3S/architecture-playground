@@ -24,8 +24,8 @@ class AppsAPI: AppStoreProtocol
                 completion([])
                 return
             }
-            if let json = try? JSONDecoder().decode([SearchModel].self, from: data) {
-                completion(json)
+            if let json = try? JSONDecoder().decode(SearchResult.self, from: data) {
+                completion(json.results)
             }
         }
         return task
