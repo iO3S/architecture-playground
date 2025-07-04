@@ -21,15 +21,13 @@ protocol SearchDisplayLogic: class
 
 class SearchViewController: UIViewController, SearchDisplayLogic
 {
-    func displaySomething(viewModel: Search.FetchAppInfos.ViewModel) {
-        print(viewModel)
-    }
-    
     let searchView = SearchView()
     let tableView = UITableView()
     
     var interactor: SearchBusinessLogic?
     var router: (NSObjectProtocol & SearchRoutingLogic & SearchDataPassing)?
+    
+    var displayedOrders: [Search.FetchAppInfos.ViewModel.DisplayedApp] = []
     
     // MARK: Object lifecycle
     
@@ -83,6 +81,10 @@ class SearchViewController: UIViewController, SearchDisplayLogic
         setTextField()
     }
     
+    func displaySomething(viewModel: Search.FetchAppInfos.ViewModel) {
+        print(viewModel)
+    }
+    
     private func setTextField() {
         searchView.textField.delegate = self
         searchView.textField.returnKeyType = .search
@@ -129,7 +131,7 @@ class SearchViewController: UIViewController, SearchDisplayLogic
 
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        5
+        displayedOrders.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
