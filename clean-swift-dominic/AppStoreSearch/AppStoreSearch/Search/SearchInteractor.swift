@@ -25,15 +25,16 @@ protocol SearchDataStore
 class SearchInteractor: SearchBusinessLogic, SearchDataStore
 {
     var presenter: SearchPresentationLogic?
-    var worker: SearchWorker?
+    var worker: SearchWorker = SearchWorker(appStore: AppsAPI())
     //var name: String = ""
     
     // MARK: Do something
     
     func fetchAppInfos(request: Search.FetchAppInfos.Request)
     {
-        worker = SearchWorker()
-        worker?.doSomeWork()
+        worker.fetchOrders(completionHandler: { searchModels in
+            print(searchModels)
+        })
         
         let response = Search.FetchAppInfos.Response()
         presenter?.presentSomething(response: response)
