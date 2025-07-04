@@ -22,7 +22,7 @@ protocol SearchDisplayLogic: class
 class SearchViewController: UIViewController, SearchDisplayLogic
 {
     func displaySomething(viewModel: Search.FetchAppInfos.ViewModel) {
-        print()
+        print(viewModel)
     }
     
     let searchView = SearchView()
@@ -80,7 +80,12 @@ class SearchViewController: UIViewController, SearchDisplayLogic
         super.viewDidLoad()
         setAutolayout()
         setupTableView()
-        interactor?.fetchAppInfos(request: Search.FetchAppInfos.Request())
+        setTextField()
+    }
+    
+    private func setTextField() {
+        searchView.textField.delegate = self
+        searchView.textField.returnKeyType = .search
     }
     
     private func setAutolayout() {
@@ -131,5 +136,13 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AppInfoTableViewCell", for: indexPath) as! AppInfoTableViewCell
         cell.configure()
         return cell
+    }
+}
+
+extension SearchViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        interactor?.fetchAppInfos(request: Search.FetchAppInfos.Request(keyword: textField.text ?? ""))
+        textField.resignFirstResponder()
+        return true
     }
 }
