@@ -32,9 +32,9 @@ class SearchInteractor: SearchBusinessLogic, SearchDataStore
     
     func fetchAppInfos(request: Search.FetchAppInfos.Request)
     {
-        worker.fetchOrders(completionHandler: { searchModels in
+        worker.fetchOrders(keyword: request.keyword) { searchModels in
             let response = Search.FetchAppInfos.Response(apps: searchModels)
             self.presenter?.presentSomething(response: response)
-        })
+        }
     }
 }
