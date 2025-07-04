@@ -21,7 +21,7 @@ class SearchWorker
       self.appStore = appStore
     }
     
-    func fetchOrders(completionHandler: @escaping ([SearchModel]) -> Void)
+    func fetchOrders(keyword: String, completionHandler: @escaping ([SearchModel]) -> Void)
     {
       appStore.fetchOrders { (apps: () throws -> [SearchModel]) -> Void in
         do {
