@@ -20,6 +20,7 @@ enum Search
   {
     struct Request
     {
+        var keyword: String
     }
     struct Response
     {
@@ -29,7 +30,7 @@ enum Search
     {
         struct DisplayedApp
         {
-          var screenshotUrls: String
+          var screenshotUrls: [String]
           var artworkUrls: String
           var sellerName: String
           var trackName: String
