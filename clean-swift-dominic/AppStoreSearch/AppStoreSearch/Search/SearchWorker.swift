@@ -14,7 +14,31 @@ import UIKit
 
 class SearchWorker
 {
-  func doSomeWork()
-  {
-  }
+    var appStore: AppStoreProtocol
+    
+    init(appStore: AppStoreProtocol)
+    {
+      self.appStore = appStore
+    }
+    
+    func fetchOrders(completionHandler: @escaping ([SearchModel]) -> Void)
+    {
+      appStore.fetchOrders { (apps: () throws -> [SearchModel]) -> Void in
+        do {
+          let orders = try apps()
+          DispatchQueue.main.async {
+            completionHandler(orders)
+          }
+        } catch {
+          DispatchQueue.main.async {
+            completionHandler([])
+          }
+        }
+      }
+    }
+}
+
+protocol AppStoreProtocol
+{
+    func fetchOrders(completionHandler: @escaping (() throws -> [SearchModel]) -> Void)
 }
