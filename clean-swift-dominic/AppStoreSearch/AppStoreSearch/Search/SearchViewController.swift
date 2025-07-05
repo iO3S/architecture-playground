@@ -140,6 +140,10 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         cell.configure(model: displayedOrders[indexPath.row])
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        router?.routeToDetail()
+    }
 }
 
 extension SearchViewController: UITextFieldDelegate {
