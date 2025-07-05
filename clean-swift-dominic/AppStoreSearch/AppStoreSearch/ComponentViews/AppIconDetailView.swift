@@ -217,5 +217,12 @@ extension AppIconDetailView {
 }
 
 #Preview {
-    AppIconDetailView()
+    AppIconDetailView().then {
+        let appIconContainerInfo = AppIconDetailView.Info(
+            artworkUrl512: "https://littledeep.com/wp-content/uploads/2020/09/naver-icon-style.png",
+            sellerName: "네이버 - NAVER",
+            trackName: "NAVER Corp."
+        )
+        $0.info = appIconContainerInfo
+    }
 }
