@@ -101,6 +101,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic
         super.viewDidLoad()
         setAutoLayout()
         doSomething()
+        view.backgroundColor = .black
     }
     
     private func setAutoLayout() {
@@ -115,7 +116,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic
             make.edges.width.equalToSuperview()
         }
         stackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.edges.equalToSuperview().inset(20)
         }
         appIconDetailView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
@@ -140,10 +141,31 @@ class DetailViewController: UIViewController, DetailDisplayLogic
             languageCodesISO2A: ["한국어", "영어"]
         )
         appInfoDetailView.info = appInfoContainerInfo
+        
+        let appIconContainerInfo = AppIconDetailView.Info(
+            artworkUrl512: "https://littledeep.com/wp-content/uploads/2020/09/naver-icon-style.png",
+            sellerName: "네이버 - NAVER",
+            trackName: "NAVER Corp."
+        )
+        appIconDetailView.info = appIconContainerInfo
+        
+        let screenshotsPreviewInfo = ScreenshotsPreviewView.Info(
+            images: ["https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/1d/f4/87/1df48778-4b7b-3c26-e1b4-40c917d61283/Appstore_Preview_Plus_01.png/392x696bb.png", "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/73/a0/da/73a0daa5-51b4-69bd-58ed-bdfd91a96ed4/Appstore_Preview_Plus_02.png/392x696bb.png", "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/a0/83/16/a08316f7-b841-2ecc-c97c-49a1a5a2ec8e/Appstore_Preview_Plus_03.png/392x696bb.png", "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/e7/aa/1b/e7aa1b32-9f65-c3a8-cb69-a59a2774bee3/Appstore_Preview_Plus_03.png/392x696bb.png"],
+            imageSize: CGSize(width: 250, height: 500),
+            type: .iphone
+        )
+        screenshotsPreviewView.configure(with: screenshotsPreviewInfo)
+        
+        let subtitleInfo = SubtitleView.Info(title: "도미닉", subtitle: "개발자")
+        subtitleView.info = subtitleInfo
     }
     
     func displaySomething(viewModel: Detail.Something.ViewModel)
     {
         //nameTextField.text = viewModel.name
     }
+}
+
+#Preview {
+    DetailViewController()
 }

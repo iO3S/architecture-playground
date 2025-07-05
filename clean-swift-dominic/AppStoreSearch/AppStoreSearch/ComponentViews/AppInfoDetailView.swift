@@ -154,5 +154,16 @@ extension AppInfoDetailView {
 }
 
 #Preview {
-    AppInfoDetailView()
+    AppInfoDetailView().then {
+        let appInfoContainerInfo = AppInfoDetailView.Info(
+            userRatingCount: "3억5천",
+            averageUserRating: 4.5,
+            contentAdvisoryRating: "5세 이상",
+            trackContentRating: "5위",
+            genres: ["게임", "성인"],
+            artistName: "도미닉",
+            languageCodesISO2A: ["한국어", "영어"]
+        )
+        $0.info = appInfoContainerInfo
+    }
 }

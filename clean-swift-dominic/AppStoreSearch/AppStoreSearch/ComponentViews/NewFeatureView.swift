@@ -51,7 +51,7 @@ class NewFeatureView: UIView {
         label.text = "새로운 기능"
         label.accessibilityLabel = label.text
         label.font = UIFont.dynamicSystemFont(for: .title3b)
-        label.textColor = .label
+        label.textColor = .white
         return label
     }()
     
@@ -70,7 +70,7 @@ class NewFeatureView: UIView {
         label.text = "버전 정보 없음"
         label.textAlignment = .left
         label.font = UIFont.dynamicSystemFont(for: .subhead)
-        label.textColor = .secondaryLabel
+        label.textColor = .lightGray
         return label
     }()
     
@@ -79,7 +79,7 @@ class NewFeatureView: UIView {
         label.text = "업데이트 정보 없음"
         label.textAlignment = .right
         label.font = UIFont.dynamicSystemFont(for: .body)
-        label.textColor = .secondaryLabel
+        label.textColor = .lightGray
         return label
     }()
     

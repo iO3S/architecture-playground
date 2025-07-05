@@ -55,7 +55,7 @@ class AppIconDetailView: UIView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 20
         imageView.layer.masksToBounds = true
-        imageView.backgroundColor = .systemGray5
+        imageView.backgroundColor = .lightGray
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -64,7 +64,7 @@ class AppIconDetailView: UIView {
         let label = UILabel()
         label.accessibilityLabel = label.text
         label.font = UIFont.dynamicSystemFont(for: .title3b)
-        label.textColor = .label
+        label.textColor = .white
         label.setContentHuggingPriority(.required, for: .vertical)
         label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
@@ -74,7 +74,7 @@ class AppIconDetailView: UIView {
         let label = UILabel()
         label.accessibilityLabel = label.text
         label.font = UIFont.dynamicSystemFont(for: .body)
-        label.textColor = .secondaryLabel
+        label.textColor = .lightGray
         label.setContentHuggingPriority(.required, for: .vertical)
         label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label

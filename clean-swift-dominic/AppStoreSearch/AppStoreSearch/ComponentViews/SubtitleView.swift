@@ -90,5 +90,8 @@ class SubtitleView: UIView {
 }
 
 #Preview {
-    SubtitleView()
+    SubtitleView().then {
+        let subtitleInfo = SubtitleView.Info(title: "도미닉", subtitle: "개발자")
+        $0.info = subtitleInfo
+    }
 }
