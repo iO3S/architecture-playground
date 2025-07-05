@@ -149,6 +149,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         router?.routeToDetail()
+        searchView.textField.resignFirstResponder()
     }
 }
 
