@@ -16,9 +16,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: scene.coordinateSpace.bounds)
         window?.windowScene = scene
-        let searchViewController = SearchViewController()
-        let navigationController = UINavigationController(rootViewController: searchViewController)
-        window?.rootViewController = navigationController
+        let viewControllers = [
+            TodayViewController(),
+            GameViewController(nibName: nil, bundle: nil),
+            AppViewController(nibName: nil, bundle: nil),
+            ArcadeViewController(nibName: nil, bundle: nil),
+            SearchViewController()
+        ]
+        let navigationViewControllers = viewControllers.map { viewcontroller in
+            UINavigationController(rootViewController: viewcontroller)
+        }
+        let tabBarViewController = UITabBarController()
+        tabBarViewController.viewControllers = navigationViewControllers
+        window?.rootViewController = tabBarViewController
         window?.makeKeyAndVisible()
     }
 
@@ -49,7 +59,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
 
 }
 
