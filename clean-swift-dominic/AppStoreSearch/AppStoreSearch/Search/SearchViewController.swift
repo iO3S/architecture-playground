@@ -79,6 +79,7 @@ class SearchViewController: UIViewController, SearchDisplayLogic
         setAutolayout()
         setupTableView()
         setTextField()
+        setNavigationBackButton()
     }
     
     func displaySomething(viewModel: Search.FetchAppInfos.ViewModel) {
@@ -89,6 +90,11 @@ class SearchViewController: UIViewController, SearchDisplayLogic
     private func setTextField() {
         searchView.textField.delegate = self
         searchView.textField.returnKeyType = .search
+    }
+    
+    private func setNavigationBackButton() {
+        let backBarButtonItem = UIBarButtonItem(title: "검색", style: .done, target: self, action: nil)
+        navigationItem.backBarButtonItem = backBarButtonItem
     }
     
     private func setAutolayout() {
