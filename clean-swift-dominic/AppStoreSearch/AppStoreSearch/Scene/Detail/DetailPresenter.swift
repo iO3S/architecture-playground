@@ -32,12 +32,11 @@ class DetailPresenter: DetailPresentationLogic
         let screenshotsPreviewInfo = makeScreenshotsPreviewInfo(model: model)
         let subtitleViewInfo = makeSubtitleInfo(model: model)
         let viewModel = Detail.AppInfo.ViewModel(
-            displayedDetail: Detail.AppInfo.ViewModel.DisplayedDetail(
                 appIconDetailInfo: appIconDetailInfo,
                 appInfoDetailInfo: appInfoDetailInfo,
                 newFeatureInfo: newFeatureInfo,
                 screenshotsPreviewInfo: screenshotsPreviewInfo,
-                subtitleInfo: subtitleViewInfo)
+                subtitleInfo: subtitleViewInfo
         )
         viewController?.displayAppInfo(viewModel: viewModel)
     }
