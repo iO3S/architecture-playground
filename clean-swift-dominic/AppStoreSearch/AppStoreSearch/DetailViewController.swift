@@ -24,9 +24,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic
     private let appIconDetailView = AppIconDetailView()
     private let appInfoDetailView = AppInfoDetailView()
     private let newFeatureView = NewFeatureView()
-    private let releaseNoteView = ShowMoreView()
     private let screenshotsPreviewView = ScreenshotsPreviewView()
-    private let descriptionView = ShowMoreView()
     private let subtitleView = SubtitleView()
     private lazy var stackView = UIStackView(arrangedSubviews: [
         appIconDetailView,
@@ -34,11 +32,9 @@ class DetailViewController: UIViewController, DetailDisplayLogic
         appInfoDetailView,
         ViewFactory.create(SeparatorView.self, direction: .horizontal),
         newFeatureView,
-        releaseNoteView,
         ViewFactory.create(SeparatorView.self, direction: .horizontal),
         screenshotsPreviewView,
         ViewFactory.create(SeparatorView.self, direction: .horizontal),
-        descriptionView,
         SpacerView(),
         subtitleView,
     ]).then {
