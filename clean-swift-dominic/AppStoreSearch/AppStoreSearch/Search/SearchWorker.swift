@@ -23,7 +23,7 @@ class SearchWorker
     
     func fetchOrders(keyword: String, completionHandler: @escaping ([SearchModel]) -> Void)
     {
-      appStore.fetchOrders { (apps: () throws -> [SearchModel]) -> Void in
+        appStore.fetchOrders(keyword: keyword) { (apps: () throws -> [SearchModel]) -> Void in
         do {
           let orders = try apps()
           DispatchQueue.main.async {
@@ -40,5 +40,5 @@ class SearchWorker
 
 protocol AppStoreProtocol
 {
-    func fetchOrders(completionHandler: @escaping (() throws -> [SearchModel]) -> Void)
+    func fetchOrders(keyword: String, completionHandler: @escaping (() throws -> [SearchModel]) -> Void)
 }

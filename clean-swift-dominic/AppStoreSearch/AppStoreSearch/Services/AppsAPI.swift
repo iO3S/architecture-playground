@@ -9,8 +9,8 @@ import Foundation
 
 class AppsAPI: AppStoreProtocol
 {
-    func fetchOrders(completionHandler: @escaping (() throws -> [SearchModel]) -> Void) {
-        if let url = URL(string: "https://itunes.apple.com/search?term=네이버&country=kr&entity=software") {
+    func fetchOrders(keyword: String, completionHandler: @escaping (() throws -> [SearchModel]) -> Void) {
+        if let url = URL(string: "https://itunes.apple.com/search?term=\(keyword)&country=kr&entity=software") {
             let task = loadAppsInfo(url: url) { searchModels in
                 completionHandler { return searchModels }
             }
