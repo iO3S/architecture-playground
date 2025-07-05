@@ -14,7 +14,7 @@ import UIKit
 
 protocol DetailDisplayLogic: class
 {
-    func displaySomething(viewModel: Detail.Something.ViewModel)
+    func displayAppInfo(viewModel: Detail.AppInfo.ViewModel)
 }
 
 class DetailViewController: UIViewController, DetailDisplayLogic
@@ -129,8 +129,8 @@ class DetailViewController: UIViewController, DetailDisplayLogic
     
     func doSomething()
     {
-        let request = Detail.Something.Request()
-        interactor?.doSomething(request: request)
+        let request = Detail.AppInfo.Request()
+        interactor?.fetchAppInfo(request: request)
         let appInfoContainerInfo = AppInfoDetailView.Info(
             userRatingCount: "3억5천",
             averageUserRating: 4.5,
@@ -160,7 +160,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic
         subtitleView.info = subtitleInfo
     }
     
-    func displaySomething(viewModel: Detail.Something.ViewModel)
+    func displayAppInfo(viewModel: Detail.AppInfo.ViewModel)
     {
         //nameTextField.text = viewModel.name
     }

@@ -16,7 +16,7 @@ enum Detail
 {
   // MARK: Use cases
   
-  enum Something
+  enum AppInfo
   {
     struct Request
     {
