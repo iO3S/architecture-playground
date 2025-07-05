@@ -96,7 +96,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic
     {
         super.viewDidLoad()
         setAutoLayout()
-        doSomething()
+        fetchDetail()
         view.backgroundColor = .black
     }
     
@@ -123,10 +123,14 @@ class DetailViewController: UIViewController, DetailDisplayLogic
     
     //@IBOutlet weak var nameTextField: UITextField!
     
-    func doSomething()
+    func fetchDetail()
     {
         let request = Detail.AppInfo.Request()
         interactor?.fetchAppInfo(request: request)
+    }
+    
+    func displayAppInfo(viewModel: Detail.AppInfo.ViewModel)
+    {
         let appInfoContainerInfo = AppInfoDetailView.Info(
             userRatingCount: "3억5천",
             averageUserRating: 4.5,
@@ -154,11 +158,6 @@ class DetailViewController: UIViewController, DetailDisplayLogic
         
         let subtitleInfo = SubtitleView.Info(title: "도미닉", subtitle: "개발자")
         subtitleView.info = subtitleInfo
-    }
-    
-    func displayAppInfo(viewModel: Detail.AppInfo.ViewModel)
-    {
-        //nameTextField.text = viewModel.name
     }
 }
 
