@@ -19,13 +19,68 @@ protocol DetailPresentationLogic
 
 class DetailPresenter: DetailPresentationLogic
 {
-  weak var viewController: DetailDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentAppInfo(response: Detail.AppInfo.Response)
-  {
-    let viewModel = Detail.AppInfo.ViewModel()
-    viewController?.displayAppInfo(viewModel: viewModel)
-  }
+    weak var viewController: DetailDisplayLogic?
+    
+    // MARK: Do something
+    
+    func presentAppInfo(response: Detail.AppInfo.Response)
+    {
+        let model = response.searchModel
+        let appIconDetailInfo = makeAppIconDetailInfo(model: model)
+        let appInfoDetailInfo = makeAppInfoDetailInfo(model: model)
+        let newFeatureInfo = makeNewFeatureInfo(model: model)
+        let screenshotsPreviewInfo = makeScreenshotsPreviewInfo(model: model)
+        let subtitleViewInfo = makeSubtitleInfo(model: model)
+        let viewModel = Detail.AppInfo.ViewModel(
+            displayedDetail: Detail.AppInfo.ViewModel.DisplayedDetail(
+                appIconDetailInfo: appIconDetailInfo,
+                appInfoDetailInfo: appInfoDetailInfo,
+                newFeatureInfo: newFeatureInfo,
+                screenshotsPreviewInfo: screenshotsPreviewInfo,
+                subtitleInfo: subtitleViewInfo)
+        )
+        viewController?.displayAppInfo(viewModel: viewModel)
+    }
+    
+    private func makeAppIconDetailInfo(model: SearchModel) -> AppIconDetailView.Info {
+        AppIconDetailView.Info(
+            artworkUrl512: model.artworkUrl512,
+            sellerName: model.sellerName,
+            trackName: model.trackName
+        )
+    }
+    
+    private func makeAppInfoDetailInfo(model: SearchModel) -> AppInfoDetailView.Info {
+        AppInfoDetailView.Info(
+            userRatingCount: String(model.userRatingCount),
+            averageUserRating: model.averageUserRating,
+            contentAdvisoryRating: model.contentAdvisoryRating,
+            trackContentRating: model.trackContentRating,
+            genres: model.genres,
+            artistName: model.artistName,
+            languageCodesISO2A: model.languageCodesISO2A
+        )
+    }
+    
+    private func makeNewFeatureInfo(model: SearchModel) -> NewFeatureView.Info {
+        NewFeatureView.Info(
+            version: model.version,
+            currentVersionReleaseDate: model.currentVersionReleaseDate
+        )
+    }
+    
+    private func makeScreenshotsPreviewInfo(model: SearchModel) -> ScreenshotsPreviewView.Info {
+        ScreenshotsPreviewView.Info(
+            images: model.screenshotUrls,
+            imageSize: CGSize(width: 250, height: 500),
+            type: .iphone
+        )
+    }
+    
+    private func makeSubtitleInfo(model: SearchModel) -> SubtitleView.Info {
+        SubtitleView.Info(
+            title: model.artistName,
+            subtitle: "개발자"
+        )
+    }
 }
