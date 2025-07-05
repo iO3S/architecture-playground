@@ -39,14 +39,8 @@ class AppInfoTableViewCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
-        let appIconListinfo = AppIconListView.Info(
-            artworkUrl512: "",
-            sellerName: "",
-            trackName: ""
-        )
-        appIconListView.configure(with: appIconListinfo)
-        
-        
+        appIconListView.reset()
+        screenshotsPreviewView.reset()
     }
     
     func configure(model: Search.FetchAppInfos.ViewModel.DisplayedApp) {
