@@ -14,47 +14,54 @@ import UIKit
 
 @objc protocol SearchRoutingLogic
 {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+    func routeToDetail()
 }
 
 protocol SearchDataPassing
 {
-  var dataStore: SearchDataStore? { get }
+    var dataStore: SearchDataStore? { get }
 }
 
 class SearchRouter: NSObject, SearchRoutingLogic, SearchDataPassing
 {
-  weak var viewController: SearchViewController?
-  var dataStore: SearchDataStore?
-  
-  // MARK: Routing
-  
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
-
-  // MARK: Navigation
-  
-  //func navigateToSomewhere(source: SearchViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
-  
-  // MARK: Passing data
-  
-  //func passDataToSomewhere(source: SearchDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+    weak var viewController: SearchViewController?
+    var dataStore: SearchDataStore?
+    
+    // MARK: Routing
+    
+    func routeToDetail() {
+        let destinationVC = DetailViewController()
+        var destinationDS = destinationVC.router!.dataStore!
+        passDataToDetiail(source: dataStore!, destination: &destinationDS)
+        navigateToDetail(source: viewController!, destination: destinationVC)
+    }
+    //func routeToSomewhere(segue: UIStoryboardSegue?)
+    //{
+    //  if let segue = segue {
+    //    let destinationVC = segue.destination as! SomewhereViewController
+    //    var destinationDS = destinationVC.router!.dataStore!
+    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
+    //  } else {
+    //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
+    //    var destinationDS = destinationVC.router!.dataStore!
+    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
+    //    navigateToSomewhere(source: viewController!, destination: destinationVC)
+    //  }
+    //}
+    
+    // MARK: Navigation
+    
+    func navigateToDetail(source: SearchViewController, destination: DetailViewController)
+    {
+        source.navigationController?.pushViewController(destination, animated: true)
+    }
+    
+    // MARK: Passing data
+    
+    func passDataToDetiail(source: SearchDataStore, destination: inout DetailDataStore)
+    {
+        let selectedRow = viewController?.tableView.indexPathForSelectedRow?.row
+        destination.appInfo = source.searchModels?[selectedRow!]
+    }
 }
