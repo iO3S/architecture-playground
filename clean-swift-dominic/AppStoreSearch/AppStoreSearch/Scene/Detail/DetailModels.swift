@@ -23,9 +23,20 @@ enum Detail
     }
     struct Response
     {
+        var searchModel: SearchModel
     }
     struct ViewModel
     {
+        struct DisplayedDetail
+        {
+            let appIconDetailInfo: AppIconDetailView.Info
+            let appInfoDetailInfo: AppInfoDetailView.Info
+            let newFeatureInfo: NewFeatureView.Info
+            let screenshotsPreviewInfo: ScreenshotsPreviewView.Info
+            let subtitleInfo: SubtitleView.Info
+        }
+        
+        var displayedDetail: DisplayedDetail
     }
   }
 }
