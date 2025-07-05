@@ -19,24 +19,22 @@ protocol DetailBusinessLogic
 
 protocol DetailDataStore
 {
-    var appInfo: SearchModel? { get set }
+    var searchModel: SearchModel? { get set }
 }
 
 class DetailInteractor: DetailBusinessLogic, DetailDataStore
 {
     
     var presenter: DetailPresentationLogic?
-    var worker: DetailWorker?
-    var appInfo: SearchModel?
+    var searchModel: SearchModel?
     
     // MARK: Do something
     
     func fetchAppInfo(request: Detail.AppInfo.Request)
     {
-        worker = DetailWorker()
-        worker?.doSomeWork()
-        
-        let response = Detail.AppInfo.Response()
-        presenter?.presentAppInfo(response: response)
+        if let searchModel = searchModel {
+            let response = Detail.AppInfo.Response(searchModel: searchModel)
+            presenter?.presentAppInfo(response: response)
+        }
     }
 }
