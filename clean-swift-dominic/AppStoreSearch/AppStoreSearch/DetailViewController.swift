@@ -14,76 +14,136 @@ import UIKit
 
 protocol DetailDisplayLogic: class
 {
-  func displaySomething(viewModel: Detail.Something.ViewModel)
+    func displaySomething(viewModel: Detail.Something.ViewModel)
 }
 
 class DetailViewController: UIViewController, DetailDisplayLogic
 {
-  var interactor: DetailBusinessLogic?
-  var router: (NSObjectProtocol & DetailRoutingLogic & DetailDataPassing)?
-
-  // MARK: Object lifecycle
-  
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    setup()
-  }
-  
-  required init?(coder aDecoder: NSCoder)
-  {
-    super.init(coder: aDecoder)
-    setup()
-  }
-  
-  // MARK: Setup
-  
-  private func setup()
-  {
-    let viewController = self
-    let interactor = DetailInteractor()
-    let presenter = DetailPresenter()
-    let router = DetailRouter()
-    viewController.interactor = interactor
-    viewController.router = router
-    interactor.presenter = presenter
-    presenter.viewController = viewController
-    router.viewController = viewController
-    router.dataStore = interactor
-  }
-  
-  // MARK: Routing
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
+    private let appIconDetailView = AppIconDetailView()
+    private let appInfoDetailView = AppInfoDetailView()
+    private let newFeatureView = NewFeatureView()
+    private let releaseNoteView = ShowMoreView()
+    private let screenshotsPreviewView = ScreenshotsPreviewView()
+    private let descriptionView = ShowMoreView()
+    private let subtitleView = SubtitleView()
+    private lazy var stackView = UIStackView(arrangedSubviews: [
+        appIconDetailView,
+        ViewFactory.create(SeparatorView.self, direction: .horizontal),
+        appInfoDetailView,
+        ViewFactory.create(SeparatorView.self, direction: .horizontal),
+        newFeatureView,
+        releaseNoteView,
+        ViewFactory.create(SeparatorView.self, direction: .horizontal),
+        screenshotsPreviewView,
+        ViewFactory.create(SeparatorView.self, direction: .horizontal),
+        descriptionView,
+        SpacerView(),
+        subtitleView,
+    ]).then {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.axis = .vertical
+        $0.distribution = .fill
+        $0.spacing = 10
+        $0.alignment = .fill
     }
-  }
-  
-  // MARK: View lifecycle
-  
-  override func viewDidLoad()
-  {
-    super.viewDidLoad()
-    doSomething()
-  }
-  
-  // MARK: Do something
-  
-  //@IBOutlet weak var nameTextField: UITextField!
-  
-  func doSomething()
-  {
-    let request = Detail.Something.Request()
-    interactor?.doSomething(request: request)
-  }
-  
-  func displaySomething(viewModel: Detail.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
-  }
+    
+    var interactor: DetailBusinessLogic?
+    var router: (NSObjectProtocol & DetailRoutingLogic & DetailDataPassing)?
+    
+    // MARK: Object lifecycle
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
+    {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
+    }
+    
+    required init?(coder aDecoder: NSCoder)
+    {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    // MARK: Setup
+    
+    private func setup()
+    {
+        let viewController = self
+        let interactor = DetailInteractor()
+        let presenter = DetailPresenter()
+        let router = DetailRouter()
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        router.viewController = viewController
+        router.dataStore = interactor
+    }
+    
+    // MARK: Routing
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if let scene = segue.identifier {
+            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
+            if let router = router, router.responds(to: selector) {
+                router.perform(selector, with: segue)
+            }
+        }
+    }
+    
+    // MARK: View lifecycle
+    
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        setAutoLayout()
+        doSomething()
+    }
+    
+    private func setAutoLayout() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(stackView)
+        
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        contentView.snp.makeConstraints { make in
+            make.edges.width.equalToSuperview()
+        }
+        stackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        appIconDetailView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+        }
+    }
+    
+    // MARK: Do something
+    
+    //@IBOutlet weak var nameTextField: UITextField!
+    
+    func doSomething()
+    {
+        let request = Detail.Something.Request()
+        interactor?.doSomething(request: request)
+        let appInfoContainerInfo = AppInfoDetailView.Info(
+            userRatingCount: "3억5천",
+            averageUserRating: 4.5,
+            contentAdvisoryRating: "5세 이상",
+            trackContentRating: "5위",
+            genres: ["게임", "성인"],
+            artistName: "도미닉",
+            languageCodesISO2A: ["한국어", "영어"]
+        )
+        appInfoDetailView.info = appInfoContainerInfo
+    }
+    
+    func displaySomething(viewModel: Detail.Something.ViewModel)
+    {
+        //nameTextField.text = viewModel.name
+    }
 }
