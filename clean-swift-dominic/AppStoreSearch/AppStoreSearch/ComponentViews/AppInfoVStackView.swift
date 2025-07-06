@@ -172,7 +172,7 @@ extension AppInfoVStackView {
         case .language:
             topLabel.text = "언어"
             middleLabel.text = "\(info.languageCodesISO2A.first ?? "")"
-            bottomLabel.text = "\(info.languageCodesISO2A.first ?? "")"
+            bottomLabel.text = info.languageCodesISO2A.dropFirst().joined(separator: ",") == "" ? " " : info.languageCodesISO2A.dropFirst().joined(separator: ",")
             imageView.isHidden = true
             starRatingView.isHidden = true
         }
