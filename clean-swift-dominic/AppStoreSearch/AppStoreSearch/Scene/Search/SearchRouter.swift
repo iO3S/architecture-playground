@@ -62,6 +62,6 @@ class SearchRouter: NSObject, SearchRoutingLogic, SearchDataPassing
     func passDataToDetiail(source: SearchDataStore, destination: inout DetailDataStore)
     {
         let selectedRow = viewController?.tableView.indexPathForSelectedRow?.row
-        destination.appInfo = source.searchModels?[selectedRow!]
+        destination.searchModel = source.searchModels?[selectedRow!]
     }
 }

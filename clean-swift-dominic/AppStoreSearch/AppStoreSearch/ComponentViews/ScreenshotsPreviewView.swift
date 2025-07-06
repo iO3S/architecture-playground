@@ -63,7 +63,7 @@ class ScreenshotsPreviewView: UIView {
         label.text = "미리 보기"
         label.accessibilityLabel = label.text
         label.font = UIFont.dynamicSystemFont(for: .title3b)
-        label.textColor = .label
+        label.textColor = .white
         return label
     }()
     

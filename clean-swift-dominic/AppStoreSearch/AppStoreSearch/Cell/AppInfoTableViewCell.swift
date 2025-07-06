@@ -9,7 +9,7 @@ import UIKit
 
 class AppInfoTableViewCell: UITableViewCell {
     let appIconListView = AppIconListView()
-    let screenshotsPreviewView = ScreenshotsPreviewView()
+    let screenshotsPreviewView = ScreenshotsPreviewView(isTitleAndTypeHidden: true)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -17,13 +17,14 @@ class AppInfoTableViewCell: UITableViewCell {
         addSubview(appIconListView)
         addSubview(screenshotsPreviewView)
         appIconListView.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalToSuperview().inset(10)
+            make.top.equalToSuperview().inset(20)
+            make.horizontalEdges.equalToSuperview().inset(10)
             make.height.equalTo(80)
         }
         screenshotsPreviewView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview().inset(10)
-            make.top.equalTo(appIconListView.snp.bottom)
+            make.horizontalEdges.equalToSuperview().inset(10)
+            make.bottom.equalToSuperview().inset(20)
+            make.top.equalTo(appIconListView.snp.bottom).offset(20)
         }
     }
     
@@ -38,14 +39,8 @@ class AppInfoTableViewCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
-        let appIconListinfo = AppIconListView.Info(
-            artworkUrl512: "",
-            sellerName: "",
-            trackName: ""
-        )
-        appIconListView.configure(with: appIconListinfo)
-        
-        
+        appIconListView.reset()
+        screenshotsPreviewView.reset()
     }
     
     func configure(model: Search.FetchAppInfos.ViewModel.DisplayedApp) {
@@ -56,10 +51,10 @@ class AppInfoTableViewCell: UITableViewCell {
         )
         appIconListView.configure(with: appIconListinfo)
         
-        let width = UIScreen.main.bounds.width/3 - 20
+        let width = UIScreen.main.bounds.width/3 - 14
         let height = width * 2
         let screenshotsPreviewInfo = ScreenshotsPreviewView.Info(
-            images: model.screenshotUrls,
+            images: Array(model.screenshotUrls.prefix(3)),
             imageSize: CGSize(width: width, height: height),
             type: .iphone
         )

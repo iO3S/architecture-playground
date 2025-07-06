@@ -38,7 +38,7 @@ class SeparatorView: UIView {
   
   private let lineView: UIView = {
     let view = UIView()
-    view.backgroundColor = .opaqueSeparator
+    view.backgroundColor = .secondaryLabel
     view.translatesAutoresizingMaskIntoConstraints = false
     return view
   }()

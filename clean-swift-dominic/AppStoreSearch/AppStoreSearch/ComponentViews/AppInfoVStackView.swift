@@ -145,19 +145,19 @@ extension AppInfoVStackView {
         case .star:
             topLabel.text = "\(info.userRatingCount)개의 평가"
             middleLabel.text = "\(info.averageUserRating)"
-            starRatingView.rating = 3.0
+            starRatingView.rating = info.averageUserRating
             imageView.isHidden = true
             bottomLabel.isHidden = true
         case .age:
             topLabel.text = "연령"
             middleLabel.text = "\(info.contentAdvisoryRating)"
-            bottomLabel.text = "세"
+            bottomLabel.text = "\(info.contentAdvisoryRating.dropLast())세 이상"
             imageView.isHidden = true
             starRatingView.isHidden = true
         case .genre:
-            topLabel.text = "차트"
-            middleLabel.text = "\(info.trackContentRating)"
-            bottomLabel.text = "\(info.genres.first ?? "")"
+            topLabel.text = "카테고리"
+            middleLabel.text = "\(info.genres.first ?? "")"
+            bottomLabel.text = info.genres.dropFirst().joined(separator: ",") == "" ? " " : info.genres.dropFirst().joined(separator: ",")
             imageView.isHidden = true
             starRatingView.isHidden = true
         case .artist:
@@ -172,7 +172,7 @@ extension AppInfoVStackView {
         case .language:
             topLabel.text = "언어"
             middleLabel.text = "\(info.languageCodesISO2A.first ?? "")"
-            bottomLabel.text = "\(info.languageCodesISO2A.first ?? "")"
+            bottomLabel.text = info.languageCodesISO2A.dropFirst().joined(separator: ",") == "" ? " " : info.languageCodesISO2A.dropFirst().joined(separator: ",")
             imageView.isHidden = true
             starRatingView.isHidden = true
         }

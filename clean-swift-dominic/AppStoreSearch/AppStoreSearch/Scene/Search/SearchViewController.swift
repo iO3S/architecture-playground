@@ -80,6 +80,7 @@ class SearchViewController: UIViewController, SearchDisplayLogic
         setupTableView()
         setTextField()
         setNavigationBackButton()
+        setCancleButtonAction()
     }
     
     func displaySomething(viewModel: Search.FetchAppInfos.ViewModel) {
@@ -130,10 +131,19 @@ class SearchViewController: UIViewController, SearchDisplayLogic
         tableView.backgroundColor = .black
     }
     
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
+    private func setCancleButtonAction() {
+        searchView.cancleButton.addAction(UIAction { [weak self ] _ in
+            guard let self = self else { return }
+            self.reset()
+        }, for: .primaryActionTriggered)
+    }
+                                          
+    private func reset() {
+        displayedOrders = []
+        tableView.reloadData()
+        searchView.textField.text = ""
+        searchView.textField.resignFirstResponder()
+    }
 }
 
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
@@ -149,6 +159,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         router?.routeToDetail()
+        searchView.textField.resignFirstResponder()
     }
 }
 

@@ -14,29 +14,27 @@ import UIKit
 
 protocol DetailBusinessLogic
 {
-    func doSomething(request: Detail.Something.Request)
+    func fetchAppInfo(request: Detail.AppInfo.Request)
 }
 
 protocol DetailDataStore
 {
-    var appInfo: SearchModel? { get set }
+    var searchModel: SearchModel? { get set }
 }
 
 class DetailInteractor: DetailBusinessLogic, DetailDataStore
 {
     
     var presenter: DetailPresentationLogic?
-    var worker: DetailWorker?
-    var appInfo: SearchModel?
+    var searchModel: SearchModel?
     
     // MARK: Do something
     
-    func doSomething(request: Detail.Something.Request)
+    func fetchAppInfo(request: Detail.AppInfo.Request)
     {
-        worker = DetailWorker()
-        worker?.doSomeWork()
-        
-        let response = Detail.Something.Response()
-        presenter?.presentSomething(response: response)
+        if let searchModel = searchModel {
+            let response = Detail.AppInfo.Response(searchModel: searchModel)
+            presenter?.presentAppInfo(response: response)
+        }
     }
 }
