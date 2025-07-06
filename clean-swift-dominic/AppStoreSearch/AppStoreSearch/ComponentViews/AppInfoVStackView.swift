@@ -151,13 +151,13 @@ extension AppInfoVStackView {
         case .age:
             topLabel.text = "연령"
             middleLabel.text = "\(info.contentAdvisoryRating)"
-            bottomLabel.text = "세"
+            bottomLabel.text = "\(info.contentAdvisoryRating.dropLast())세 이상"
             imageView.isHidden = true
             starRatingView.isHidden = true
         case .genre:
-            topLabel.text = "차트"
-            middleLabel.text = "\(info.trackContentRating)"
-            bottomLabel.text = "\(info.genres.first ?? "")"
+            topLabel.text = "장르"
+            middleLabel.text = "\(info.genres.first ?? "")"
+            bottomLabel.text = info.genres.dropFirst().joined(separator: ",") == "" ? " " : info.genres.dropFirst().joined(separator: ",")
             imageView.isHidden = true
             starRatingView.isHidden = true
         case .artist:
