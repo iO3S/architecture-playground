@@ -23,6 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarViewController.tabBar.unselectedItemTintColor = .lightGray
         tabBarViewController.viewControllers = tabVies
         tabBarViewController.selectedIndex = TabView.Search.rawValue
+        tabBarViewController.tabBar.backgroundColor = .black
         window?.rootViewController = tabBarViewController
         window?.makeKeyAndVisible()
     }
