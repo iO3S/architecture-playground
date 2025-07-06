@@ -155,7 +155,7 @@ extension AppInfoVStackView {
             imageView.isHidden = true
             starRatingView.isHidden = true
         case .genre:
-            topLabel.text = "장르"
+            topLabel.text = "카테고리"
             middleLabel.text = "\(info.genres.first ?? "")"
             bottomLabel.text = info.genres.dropFirst().joined(separator: ",") == "" ? " " : info.genres.dropFirst().joined(separator: ",")
             imageView.isHidden = true
