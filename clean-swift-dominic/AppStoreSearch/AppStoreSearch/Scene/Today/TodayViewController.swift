@@ -70,6 +70,7 @@ class TodayViewController: UIViewController, TodayDisplayLogic
   {
     super.viewDidLoad()
     doSomething()
+      view.backgroundColor = .black
   }
   
   // MARK: Do something

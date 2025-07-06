@@ -70,6 +70,7 @@ class AppViewController: UITableViewController, AppDisplayLogic
   {
     super.viewDidLoad()
     doSomething()
+      view.backgroundColor = .black
   }
   
   // MARK: Do something

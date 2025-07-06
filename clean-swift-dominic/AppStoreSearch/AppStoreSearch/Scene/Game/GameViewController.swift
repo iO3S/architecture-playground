@@ -70,6 +70,7 @@ class GameViewController: UITableViewController, GameDisplayLogic
   {
     super.viewDidLoad()
     doSomething()
+      view.backgroundColor = .black
   }
   
   // MARK: Do something

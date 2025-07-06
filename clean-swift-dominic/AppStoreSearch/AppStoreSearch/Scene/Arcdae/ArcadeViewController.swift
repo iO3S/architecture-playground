@@ -70,6 +70,7 @@ class ArcadeViewController: UITableViewController, ArcadeDisplayLogic
   {
     super.viewDidLoad()
     doSomething()
+      view.backgroundColor = .black
   }
   
   // MARK: Do something
