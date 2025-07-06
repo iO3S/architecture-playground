@@ -51,8 +51,8 @@ class DetailPresenter: DetailPresentationLogic
     
     private func makeAppInfoDetailInfo(model: SearchModel) -> AppInfoDetailView.Info {
         AppInfoDetailView.Info(
-            userRatingCount: String(model.userRatingCount),
-            averageUserRating: model.averageUserRating,
+            userRatingCount: model.userRatingCount.makeUserRatingCount(),
+            averageUserRating: round(model.averageUserRating * 10) / 10,
             contentAdvisoryRating: model.contentAdvisoryRating,
             trackContentRating: model.trackContentRating,
             genres: model.genres,
