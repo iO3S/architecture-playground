@@ -16,18 +16,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: scene.coordinateSpace.bounds)
         window?.windowScene = scene
-        let viewControllers = [
-            TodayViewController(),
-            GameViewController(nibName: nil, bundle: nil),
-            AppViewController(nibName: nil, bundle: nil),
-            ArcadeViewController(nibName: nil, bundle: nil),
-            SearchViewController()
-        ]
-        let navigationViewControllers = viewControllers.map { viewcontroller in
-            UINavigationController(rootViewController: viewcontroller)
-        }
         let tabBarViewController = UITabBarController()
-        tabBarViewController.viewControllers = navigationViewControllers
+        let tabVies = TabView.allCases.map { tabView in
+            tabView.makeNavigationViewController()
+        }
+        tabBarViewController.tabBar.unselectedItemTintColor = .lightGray
+        tabBarViewController.viewControllers = tabVies
+        tabBarViewController.selectedIndex = TabView.Search.rawValue
         window?.rootViewController = tabBarViewController
         window?.makeKeyAndVisible()
     }
