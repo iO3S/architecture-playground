@@ -33,7 +33,7 @@ class SubtitleView: UIView {
     private let subtitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.dynamicSystemFont(for: .subhead)
-        label.textColor = .secondaryLabel
+        label.textColor = .lightGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
