@@ -21,7 +21,10 @@ class DetailPresenter: DetailPresentationLogic
 {
     weak var viewController: DetailDisplayLogic?
     
-    // MARK: Do something
+    let dateFormatter = DateFormatter().then {
+        $0.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        $0.locale = Locale(identifier: "en_US_POSIX")
+    }
     
     func presentAppInfo(response: Detail.AppInfo.Response)
     {
@@ -62,9 +65,10 @@ class DetailPresenter: DetailPresentationLogic
     }
     
     private func makeNewFeatureInfo(model: SearchModel) -> NewFeatureView.Info {
-        NewFeatureView.Info(
+        let date = dateFormatter.date(from: model.currentVersionReleaseDate)
+        return NewFeatureView.Info(
             version: model.version,
-            currentVersionReleaseDate: model.currentVersionReleaseDate
+            currentVersionReleaseDate: date?.localizedRelativeTime() ?? "알 수 없음"
         )
     }
     
